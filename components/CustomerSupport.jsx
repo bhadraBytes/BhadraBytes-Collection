@@ -17,7 +17,7 @@ const CustomerSupportForm = () => {
     console.log('Form submitted');
   
     // Show an alert to the user
-    window.alert('Your message has been submitted! We will get back to you soon.');
+    window.alert('Your message has been submitted ! We will get back to you soon.');
   
     // Optionally, you can close the modal or reset the form after submission
     closeSupportModal();
