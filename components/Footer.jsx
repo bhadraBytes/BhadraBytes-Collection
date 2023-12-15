@@ -1,25 +1,27 @@
 import React from 'react';
-import { AiFillInstagram, AiFillGithub} from 'react-icons/ai';
-
+import { AiFillInstagram, AiFillGithub } from 'react-icons/ai';
+import CustomerSupport from './CustomerSupport';
 
 const Footer = () => {
   const openSocialMediaLink = (url) => {
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   };
 
   return (
     <div className="footer-container">
-      <p>2022 BhadraBytes-Collection All rights reserverd</p>
-      <p className="icons">
-        <div onClick={() => openSocialMediaLink("https://www.instagram.com/_yash_bhadra_/")}>
-        <AiFillInstagram />
+      <p>2022 BhadraBytes-Collection All rights reserved</p>
+      <div className="icons">
+        <div className='s-icon' onClick={() => openSocialMediaLink("https://www.instagram.com/_yash_bhadra_/")}>
+          <AiFillInstagram />
         </div>
-        <div onClick={() => openSocialMediaLink("https://github.com/bhadraBytes")}>
-        <AiFillGithub />
+        <div className='s-icon' onClick={() => openSocialMediaLink("https://github.com/bhadraBytes")}>
+          <AiFillGithub />
         </div>
-      </p>
+        {/* Include the CustomerSupport component */}
+        <CustomerSupport />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

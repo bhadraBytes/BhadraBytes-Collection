@@ -4,7 +4,7 @@ import { urlFor } from '../lib/client';
 import styles from '../styles/Home.module.css'; // Import your CSS file
 
 const HeroBanner = ({ heroBanner }) => {
-  const [backgroundColor, setBackgroundColor] = useState('#dcdcdc');
+  const [backgroundColor, setBackgroundColor] = useState('#ffff');
 
   useEffect(() => {
     const intervalId = setInterval(() => {
