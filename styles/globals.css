@@ -181,16 +181,31 @@ span.text-red {
   color: transparent;
 }
 .hero-banner-container h1 {
-  background-image: url("https://bennettfeely.com/gradients/img/gradient.jpg");
-  background-size: cover;
-  background-clip: text;
+  background: linear-gradient(to right, rgba(0, 168, 253), #fff 35%, #e00a95);
+  background-size: 200% auto;
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 3s linear infinite; 
   font-size: 6em;
   margin-left: -10px;
   margin-top: 18px;
   text-transform: uppercase;
 }
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 75%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 70%;
+  }
+}
+
 .hero-banner-image {
   position: absolute;
   top: 10%;
