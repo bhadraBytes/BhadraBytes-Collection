@@ -17,19 +17,51 @@ a {
 }
 
 .main-container {
-  max-width: 1400px;
+  /* max-width: 1400px; */
   margin: auto;
   width: 100%;
 }
-.layout {
+/* .layout {
   padding: 10px;
+} */
+
+.anouncement-container {
+  display: flex;
+  height: 40px;
+  background-color: #000000;
+  align-items: center;
+  justify-content: space-between;
+}
+.anouncement-container p{
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #cec8c8 !important;
+  padding: 0px 50px;
+  color: white;
 }
 
 .navbar-container {
+  background-color: #212121;
+  border: 1px solid rgba(0,0,0,.1);
+  color: #fff;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.app__header{
+  align-items: center;
   display: flex;
+  height: 80px;
   justify-content: space-between;
-  margin: 6px 18px;
-  position: relative;
+  margin: 0 120px;
+  max-width: 1200px;
+}
+
+.app__header .left{
+  display: flex;
+  list-style: none;
+  /* display: none; */
+  gap: 25px;
 }
 .marquee-text {
   font-size: 29px;
@@ -68,12 +100,25 @@ span.text-red {
   margin-left: 6px;
 }
 .logo {
-  color: gray;
-  font-size: 18px;
+  display: flex;
+}
+.logo img{
+  width: 180px;
+  height: 40px;
+}
+.search-icon{
+  color: white;
+  cursor: pointer;
+  font-size: 22px;
+  margin: 0 25px;
+}
+
+.search-icon:hover {
+  transform: scale(1.1, 1.1);
 }
 .cart-icon {
   font-size: 25px;
-  color: gray;
+  color: white;
   cursor: pointer;
   position: relative;
   transition: transform 0.4s ease;
@@ -131,9 +176,9 @@ span.text-red {
 .hero-banner-container {
   padding: 100px 40px;
   background-color: #dcdcdc;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   position: relative;
-  height: 500px;
+  height: 100vh;
   line-height: 0.9;
   width: 100%;
   overflow: hidden;
@@ -659,6 +704,9 @@ span.text-red {
 }
 
 @media screen and (max-width: 800px) {
+  .app__header .left{
+    display: none;
+  }
   .hero-banner-container {
     padding: 50px 20px;
     height: 500px;
