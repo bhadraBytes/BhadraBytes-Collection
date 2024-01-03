@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { AiOutlineShopping } from "react-icons/ai";
 import { TbSearch } from "react-icons/tb";
@@ -9,7 +9,12 @@ import { useStateContext } from "../context/StateContext";
 
 const Navbar = () => {
   const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const [showMenu, setShowMenu] = useState(false);
 
+  const handleMenuToggle = () => {
+    setShowMenu(!showMenu);
+  };
+  
   return (
     <>
       <div className="anouncement-container">
@@ -40,17 +45,17 @@ const Navbar = () => {
           </ul>
           <ul className="center">
             <li><a href="#">Home </a></li>
-            <li><a href="">All Products</a ></li>
-            <li><a href="">About</a ></li>
-            <li><a href="">Headphones</a ></li>
-            <li><a href="">DuoPods</a ></li>
-            <li><a href="">Speaker</a ></li>
-            <li><a href="">Contact</a ></li>
+            <li><a href="#">All Products</a ></li>
+            <li><a href="#">About</a ></li>
+            <li><a href="#">Headphones</a ></li>
+            <li><a href="#">DuoPods</a ></li>
+            <li><a href="#">Speaker</a ></li>
+            <li><a href="#">Contact</a ></li>
           </ul>
           <div className="right">
-              <div className="heart app__header-icon">
-                <FaRegHeart className="icon-hover"/>
-              </div>
+            <div className="heart app__header-icon">
+              <FaRegHeart className="icon-hover"/>
+            </div>
             <div 
               type="button"
               className="cart-icon"
@@ -59,11 +64,26 @@ const Navbar = () => {
               <h3 className="search">Cart</h3><AiOutlineShopping className="cart"/>
               <span className="cart-item-qty">{totalQuantities}</span>
             </div>
-
             {showCart && <Cart />}
           </div>
         </div>
       </div>
+
+      {/* <div className="menu-toggle" onClick={handleMenuToggle}>
+        <div className={showMenu ? "bar bar1" : "bar"}></div>
+        <div className={showMenu ? "bar bar2" : "bar"}></div>
+        <div className={showMenu ? "bar bar3" : "bar"}></div>
+      </div>
+
+      {showMenu && (
+        <div className="mobile-menu">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">All Products</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </div>
+      )} */}
     </>
   );
 };

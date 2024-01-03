@@ -904,13 +904,100 @@ select {
   margin-top: 10px;
 }
 
+
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #000;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
 @media screen and (max-width: 800px) {
-  .app__header .left {
+  .anouncement-container {
     display: none;
   }
-  .hero-banner-container {
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .app__header .left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .app__header .center {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+
+  .app__header .center li {
+    padding: 10px 0;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    z-index: 100;
+  }
+
+  .logo {
+    order: 2; /* Move logo to the center */
+    align-self: center;
+  }
+
+  .app__header .right {
+    order: 3; /* Move heart and cart icons to the right */
+    margin-top: 10px;
+    align-self: flex-end;
+  }
+
+  .app__header .user {
+    display: none; /* Hide the user icon on small screens */
+  }
+
+  .search-icon {
+    order: 1; /* Move search icon to the left */
+    margin-right: 10px; /* Add some margin between menu icon and search icon */
+  }
+
+  .cart-icon {
+    order: 4; /* Move cart icon to the right */
+  }
+
+  .cart-item-qty {
+    right: -12px; /* Adjust cart item quantity position */
+  }
+  /* .hero-banner-container {
     padding: 50px 20px;
     height: 500px;
+  } */
+  .carousel-image img {
+    width: 100%;
+    height: auto;
   }
   .hero-banner-image {
     display: none;
@@ -979,8 +1066,8 @@ select {
     flex-wrap: wrap;
   }
   .product-detail-container .product-detail-image {
-    width: 350px;
-    height: 350px;
+    width: 100%;
+    height: 100%;
   }
   .cart-container {
     width: 415px;
