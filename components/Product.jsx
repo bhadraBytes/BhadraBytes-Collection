@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-
+import { AiOutlineHeart } from 'react-icons/ai';
 import { urlFor } from '../lib/client';
 
 const Product = ({ product: { image, name, slug, price } }) => {
@@ -8,7 +8,8 @@ const Product = ({ product: { image, name, slug, price } }) => {
     <div>
       <Link href={`/product/${slug.current}`}>
         <div className="product-card">
-          <img 
+          <AiOutlineHeart className="wishlist-icon" />
+          <img
             src={urlFor(image && image[0])}
             width={250}
             height={250}
@@ -16,10 +17,18 @@ const Product = ({ product: { image, name, slug, price } }) => {
           />
           <p className="product-name">{name}</p>
           <p className="product-price">₹{price}</p>
+          {/* <div className="size-dropdown">
+            <label htmlFor="size">Size:</label>
+            <select id="size">
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+            </select>
+          </div> */}
         </div>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

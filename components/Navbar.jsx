@@ -32,26 +32,24 @@ const Navbar = () => {
         <div className="app__header">
           <ul className="left">
             <div className="app__header-icon">
-              <h3 className="search">Search</h3><TbSearch className="search-icon"/>
+              <h3 className="search">Search</h3><TbSearch className="icon-hover search-icon"/>
             </div>
             <div className="app__header-icon user">
-              <FiUser />
+              <FiUser className="icon-hover"/>
             </div>
           </ul>
           <ul className="center">
-            <li>Home</li>
-            <li>All Products</li>
-            <li>All Products</li>
-            <li>All Products</li>
-            <li>New Arrivals</li>
-            <li>Tops</li>
-            <li>Bottoms</li>
-            <li>Dresses</li>
-            <li>Sets</li>
+            <li><a href="#">Home </a></li>
+            <li><a href="">All Products</a ></li>
+            <li><a href="">About</a ></li>
+            <li><a href="">Headphones</a ></li>
+            <li><a href="">DuoPods</a ></li>
+            <li><a href="">Speaker</a ></li>
+            <li><a href="">Contact</a ></li>
           </ul>
           <div className="right">
               <div className="heart app__header-icon">
-                <FaRegHeart />
+                <FaRegHeart className="icon-hover"/>
               </div>
             <div 
               type="button"
