@@ -196,7 +196,31 @@ span.text-red {
   justify-content: center;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  padding: 12px 10px;
+}
+
+.app__header .user a {
+  /* font-weight: 600; */
+  font-family: "MetropolisMedium", sans-serif;
+  font-weight: 500;
+  font-size: 25px;
+}
+.app__header .userName {
+  display: flex;
+  text-transform: capitalize;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   padding: 10px 10px;
+  font-family: "MetropolisMedium", sans-serif;
+  font-weight: 400 !important;
+  font-size: 25px;
+}
+
+.user-icon {
+  /* padding: 12px 10px; */
+  font-size: 22px;
 }
 
 .search-icon {
@@ -604,7 +628,7 @@ select {
   margin-left: 10px;
   border: none;
   background-color: transparent;
-  color: #000;
+  /* color: #000; */
 }
 
 .cart-heading .heading {
@@ -959,36 +983,78 @@ select {
     align-items: flex-start;
     padding: 0px 12px;
   }
-
+  
   .app__header .left {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-
+  
   .app__header .center {
     display: none;
     flex-direction: column;
     text-align: center;
     width: 100%;
   }
-
-  .app__header .center li {
-    padding: 10px 0;
-  }
-
+  
   .mobile-menu {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: 0;
+    width: 250px;
+    padding: 10px 10px;
+    height: 100vh;
     left: 0;
     right: 0;
-    background-color: #fff;
+    background-color: #e6eaf3;
     border: 1px solid #ddd;
-    z-index: 100;
+    z-index: 10000;
+    overflow: hidden;
   }
-
+  
+  .mobile-menu li {
+    text-decoration: none;
+    list-style: none;
+  }
+  
+  .mobile-menu svg {
+    width: 35px;
+    height: 35px;
+    color: var(--secondary-color);
+    margin: 0.5rem 1rem;
+    text-align: start;
+  }
+  
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  
+  .mobile-menu li {
+    margin: 1rem;
+  }
+  
+  .mobile-menu a {
+    color: var(--gray-color);
+    text-decoration: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .mobile-menu a:hover {
+    color: var(--secondary-color);
+  }
+  
   .logo {
     display: none;
   }
@@ -1008,8 +1074,23 @@ select {
     margin: auto;
   }
 
+  .user-small {
+    display: flex;
+    text-transform: capitalize;
+    align-items: start !important;
+    justify-content: start !important;
+    padding: 12px 10px;
+    margin-bottom: 50px;
+    font-family: "MetropolisMedium", sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 35px !important;
+  }
+
   .app__header .user {
-    display: none; /* Hide the user icon on small screens */
+    display: none;
+  }
+  .app__header .userName {
+    display: none;
   }
 
   .search-icon {
@@ -1181,6 +1262,37 @@ select {
   .btn-container {
     width: 300px;
     margin: auto;
+  }
+
+  .login-container {
+    overflow: hidden;
+  }
+
+  .login-form {
+    width: 250px !important;
+  }
+
+  .user-dashboard {
+    max-width: 100%; /* Set max-width to 100% for smaller screens */
+    margin: 20px; /* Adjust margin for smaller screens */
+    flex-direction: column; /* Change flex direction to column for smaller screens */
+  }
+
+  .left-card {
+    width: 100%; /* Set width to 100% for smaller screens */
+    margin-bottom: 20px; /* Add margin at the bottom for spacing */
+  }
+
+  .right-card {
+    width: 100%; /* Set width to 100% for smaller screens */
+  }
+
+  .tab {
+    width: 100%; /* Set width to 100% for smaller screens */
+  }
+
+  .left-card button {
+    width: 100%; /* Set width to 100% for smaller screens */
   }
 }
 
@@ -1386,7 +1498,7 @@ input {
   box-sizing: border-box;
 }
 
-button {
+.form-group button {
   width: 100%;
   padding: 10px;
   background-color: #4caf50;
@@ -1428,6 +1540,7 @@ button {
   margin: 50px auto; /* Set auto margin for horizontal centering */
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -1462,6 +1575,7 @@ button {
   margin-bottom: 10px;
   background-color: #e0e0e0;
   transition: background-color 0.3s;
+  text-align: center;
 }
 
 .tab:hover,
@@ -1482,9 +1596,7 @@ button {
 .personal-info .info-name {
   text-transform: capitalize;
 }
-p {
-  /* font-weight: 500;
-  font-size: 18px; */
+.right-card p {
   margin-bottom: 10px;
   font-size: 18px;
 }
@@ -1500,7 +1612,7 @@ p {
   margin-top: 20px;
 }
 
-button {
+.left-card button {
   cursor: pointer;
   background-color: #ff5555;
   color: #ffffff;

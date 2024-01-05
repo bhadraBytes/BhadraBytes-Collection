@@ -1,7 +1,7 @@
 // UserDashboard.jsx
 
 import React, { useState } from "react";
-import { useAuth } from "./firebase/auth";
+import { useAuth } from "../lib/firebase/auth";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 

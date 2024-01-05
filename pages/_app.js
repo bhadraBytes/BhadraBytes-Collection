@@ -7,7 +7,7 @@ import "firebase/auth";
 import { Layout } from "../components";
 import "../styles/globals.css";
 import { StateContext } from "../context/StateContext";
-import { AuthProvider } from "./firebase/auth"; // Correct the path to your auth file
+import { AuthProvider } from "../lib/firebase/auth"; // Correct the path to your auth file
 
 function MyApp({ Component, pageProps }) {
   return (

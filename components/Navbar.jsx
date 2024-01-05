@@ -3,18 +3,25 @@ import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
 import { TbSearch } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa";
-import { FiUser } from "react-icons/fi";
+import { FaRegUserCircle } from "react-icons/fa";
+import { HiX } from "react-icons/hi";
 import { Cart } from "./";
 import { useStateContext } from "../context/StateContext";
-import { useAuth } from "../pages/firebase/auth";
+import { useAuth } from "../lib/firebase/auth";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter();
   const { user } = useAuth();
   const { showCart, setShowCart, totalQuantities } = useStateContext();
   const [showMenu, setShowMenu] = useState(false);
 
   const handleMenuToggle = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleMenuClose = () => {
+    setShowMenu(false);
   };
 
   return (
@@ -48,16 +55,15 @@ const Navbar = () => {
               <TbSearch className="icon-hover search-icon" />
             </div>
             {user ? (
-              <div className="app__header-icon user">
+              <div className="app__header-icon userName">
                 <Link href="/UserDashboard">
-                  {/* <FiUser className="icon-hover" /> */}
                   {user.displayName?.split(" ")[0] || "User"}
                 </Link>
               </div>
             ) : (
               <div className="app__header-icon user">
                 <Link href="/login">
-                  <FiUser className="icon-hover" />
+                  <FaRegUserCircle className="icon-hover" />
                 </Link>
               </div>
             )}
@@ -112,17 +118,46 @@ const Navbar = () => {
 
       {showMenu && (
         <div className="mobile-menu">
+          <HiX onClick={handleMenuClose} />
           <ul>
-            <li>
+            <li
+              onClick={() => {
+                handleMenuClose();
+                router.push("/");
+              }}
+            >
               <a href="#">Home</a>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                handleMenuClose();
+                router.push("/");
+              }}
+            >
               <a href="#">All Products</a>
             </li>
-            <li>
-              <a href="#">About</a>
+            <li
+              onClick={() => {
+                handleMenuClose();
+                router.push("/contact");
+              }}
+            >
+              <a href="#">Contact</a>
             </li>
           </ul>
+          {user ? (
+            <div className="user-small" onClick={handleMenuClose}>
+              <Link href="/UserDashboard">
+                {user.displayName?.split(" ")[0] || "User"}
+              </Link>
+            </div>
+          ) : (
+            <div className="user-small">
+              <Link href="/login">
+                <FaRegUserCircle className="icon-hover" />
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </>
