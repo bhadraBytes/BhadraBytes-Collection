@@ -6,8 +6,10 @@ import { FaRegHeart } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { Cart } from "./";
 import { useStateContext } from "../context/StateContext";
+import { useAuth } from "../pages/firebase/auth";
 
 const Navbar = () => {
+  const { user } = useAuth();
   const { showCart, setShowCart, totalQuantities } = useStateContext();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -45,41 +47,50 @@ const Navbar = () => {
               <h3 className="search">Search</h3>
               <TbSearch className="icon-hover search-icon" />
             </div>
-            <div className="app__header-icon user">
-              <FiUser className="icon-hover" />
-            </div>
+            {user ? (
+              <div className="app__header-icon user">
+                <Link href="/UserDashboard">
+                  {/* <FiUser className="icon-hover" /> */}
+                  {user.displayName?.split(" ")[0] || "User"}
+                </Link>
+              </div>
+            ) : (
+              <div className="app__header-icon user">
+                <Link href="/login">
+                  <FiUser className="icon-hover" />
+                </Link>
+              </div>
+            )}
           </ul>
           <div className="center-container">
-          <ul className="center">
-            <li>
-              <a href="#">Home </a>
-            </li>
-            <li>
-              <a href="#">All Products</a>
-            </li>
-            <li>
-              <a href="#">About</a>
-            </li>
-            <li>
-              <a href="#">Headphones</a>
-            </li>
-            <li>
-              <a href="#">DuoPods</a>
-            </li>
-            <li>
-              <a href="#">Speaker</a>
-            </li>
-            <li>
-              <a href="#">Contact</a>
-            </li>
-
-          </ul>
+            <ul className="center">
+              <li>
+                <a href="#">Home </a>
+              </li>
+              <li>
+                <a href="#">All Products</a>
+              </li>
+              <li>
+                <a href="#">About</a>
+              </li>
+              <li>
+                <a href="#">Headphones</a>
+              </li>
+              <li>
+                <a href="#">DuoPods</a>
+              </li>
+              <li>
+                <a href="#">Speaker</a>
+              </li>
+              <li>
+                <a href="#">Contact</a>
+              </li>
+            </ul>
             <div className="small-logo">
               <Link href="/">
                 <img src="./assets/bhadrabytes.png" alt="" />
               </Link>
             </div>
-
           </div>
           <div className="right">
             <div className="heart app__header-icon">

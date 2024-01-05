@@ -181,7 +181,7 @@ span.text-red {
   transition: transform 0.4s ease;
   border: none;
   background-color: transparent;
-  margin: 0px 5px;
+  margin: 0px 15px;
 }
 
 .icon-hover:hover {
@@ -191,11 +191,12 @@ span.text-red {
 .app__header .user {
   display: flex;
   font-weight: lighter !important;
+  text-transform: capitalize;
   align-items: center;
   justify-content: center;
   border-left: 1px solid black;
   border-right: 1px solid black;
-  padding: 15px 10px;
+  padding: 10px 10px;
 }
 
 .search-icon {
@@ -603,6 +604,7 @@ select {
   margin-left: 10px;
   border: none;
   background-color: transparent;
+  color: #000;
 }
 
 .cart-heading .heading {
@@ -920,6 +922,9 @@ select {
 }
 
 @media screen and (max-width: 800px) {
+  .app__header-icon {
+    margin: auto;
+  }
   .anouncement-container .p-text:nth-child(1) {
     font-size: 10px !important;
     word-spacing: normal !important;
@@ -1000,7 +1005,6 @@ select {
     justify-content: center;
     border-left: none;
     border-right: none;
-    padding: 15px 10px;
     margin: auto;
   }
 
@@ -1013,12 +1017,16 @@ select {
     margin-right: 10px; /* Add some margin between menu icon and search icon */
   }
 
+  .cart {
+    margin: 0 10px;
+  }
+
   .cart-icon {
     order: 4; /* Move cart icon to the right */
   }
 
   .cart-item-qty {
-    right: -12px; /* Adjust cart item quantity position */
+    right: 0px; /* Adjust cart item quantity position */
   }
   /* .hero-banner-container {
     padding: 50px 20px;
@@ -1099,7 +1107,7 @@ select {
     height: 100%;
   }
   .cart-container {
-    width: 415px;
+    width: 100%;
     padding: 4px;
   }
   .cart-heading {
@@ -1222,11 +1230,15 @@ select {
 
 .customer-support-form .form-container .close-button {
   position: absolute;
+  font-size: 20px;
   top: 10px;
   right: 10px;
   cursor: pointer;
   font-weight: bold;
   color: white;
+  border-radius: 50%;
+  background: black;
+  padding: 6px 12px;
 }
 
 .customer-support-form .form-container h2 {
@@ -1236,13 +1248,16 @@ select {
 }
 
 .customer-support-form .form-container p {
-  font-size: 18px;
+  font-size: 16px;
+  text-align: center;
   margin-bottom: 20px;
+  color: #f8fafb;
 }
 
 .customer-support-form .form-container form {
   display: flex;
   flex-direction: column;
+  text-align: start;
 }
 
 .customer-support-form .form-container form label {
@@ -1295,6 +1310,34 @@ select {
   .customer-support-form .form-container {
     width: 90%;
   }
+  .customer-support-form .form-container h2 {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .customer-support-form .form-container p {
+    font-size: 14px;
+    text-align: start;
+    margin-bottom: 20px;
+    color: #f8fafb;
+  }
+  .customer-support-form .form-container form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: start !important;
+  }
+
+  .customer-support-form .form-container form input,
+  .customer-support-form .form-container form textarea {
+    margin-bottom: 0px;
+    padding: 15px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    background-color: #082642;
+    color: white;
+    width: 100%;
+  }
 }
 
 .slick-slide img {
@@ -1307,3 +1350,162 @@ select {
   position: static !important;
   width: 100px !important;
 } */
+
+/* Login Signup Pages Styles */
+
+/* src/styles/login.css */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.login-container h2 {
+  font-size: 28px;
+}
+
+.login-form {
+  width: 400px;
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.forgot-password {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.create-account {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.create-account a {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+/* Signup page  */
+.already-have-account {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.already-have-account a {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+/* Add this CSS to your styles or create a new stylesheet */
+
+.user-dashboard {
+  max-width: 800px;
+  margin: 50px auto; /* Set auto margin for horizontal centering */
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-card {
+  width: 250px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.right-card {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.tabs {
+  margin-top: 20px;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #e0e0e0;
+  transition: background-color 0.3s;
+}
+
+.tab:hover,
+.tab.active {
+  background-color: #d0d0d0;
+}
+
+.personal-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-info {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+.personal-info .info-name {
+  text-transform: capitalize;
+}
+p {
+  /* font-weight: 500;
+  font-size: 18px; */
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.personal-info p span {
+  font-weight: 400;
+  margin-left: 10px;
+  color: #535252;
+  margin-bottom: 2px;
+}
+
+.orders,
+.address {
+  margin-top: 20px;
+}
+
+button {
+  cursor: pointer;
+  background-color: #ff5555;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}

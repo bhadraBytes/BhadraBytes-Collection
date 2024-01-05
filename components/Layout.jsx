@@ -9,7 +9,6 @@ const Layout = ({ children }) => {
     <div className="layout">
       <Head>
         <title>BhadraBytes-Collection</title>
-        <link rel="icon" href="/public/favicon.ico" />
       </Head>
       <header>
         <Navbar />
