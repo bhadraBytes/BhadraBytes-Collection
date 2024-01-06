@@ -9,17 +9,37 @@ import {
 import { client, urlFor } from "../../lib/client";
 import { Product } from "../../components";
 import { useStateContext } from "../../context/StateContext";
+import { toast } from "react-hot-toast";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const {
+    decQty,
+    incQty,
+    qty,
+    onAdd,
+    onAddToWishlist,
+    setShowCart,
+    setShowWishlist,
+  } = useStateContext();
 
   const handleBuyNow = () => {
     onAdd(product, qty);
 
     setShowCart(true);
   };
+
+  const handleAddToWishlist = async () => {
+    try {
+      await onAddToWishlist(product);
+      toast.success(`${name} added to wishlist.`);
+    } catch (error) {
+      setShowWishlist(false);
+      toast.error(`${name} error from wishlist.`);
+    }
+  };
+  
 
   return (
     <div>
@@ -82,6 +102,15 @@ const ProductDetails = ({ product, products }) => {
             </button>
             <button type="button" className="buy-now" onClick={handleBuyNow}>
               Buy Now
+            </button>
+          </div>
+          <div className="buttons">
+            <button
+              type="button"
+              onClick={handleAddToWishlist}
+              className="add-to-wishlist"
+            >
+              Add to Wishlist
             </button>
           </div>
         </div>

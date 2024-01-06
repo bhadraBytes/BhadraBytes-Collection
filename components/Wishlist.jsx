@@ -3,7 +3,10 @@ import React from 'react';
 import { useStateContext } from '../context/StateContext';
 import { AiOutlineLeft } from "react-icons/ai";
 import { FiShoppingCart  } from "react-icons/fi";
+import { TiDeleteOutline  } from "react-icons/ti";
 import { Product } from './';
+import { urlFor } from '@/lib/client';
+
 
 const Wishlist = () => {
   const { wishlistItems, setShowWishlist, onRemoveFromWishlist, onAdd } = useStateContext();
@@ -43,11 +46,31 @@ const Wishlist = () => {
             </button>
           </div>
         )}
-
         <div className="product-container">
-          {wishlistItems.map((product) => (
-            <Product key={product._id} product={product} onRemove={onRemoveFromWishlist} isWishlistItem />
-          ))}
+          {wishlistItems.length >= 1 &&
+            wishlistItems.map((item) => (
+              <div className="product" key={item._id}>
+                <img
+                  src={urlFor(item?.image[0])}
+                  className="cart-product-image"
+                />
+                <div className="item-desc">
+                  <div className="flex top">
+                    <h5>{item.name}</h5>
+                    <h4>₹{item.price}</h4>
+                  </div>
+                  <div className="flex bottom">
+                    <button
+                      type="button"
+                      className="remove-item"
+                      onClick={() => onRemoveFromWishlist(item)}
+                    >
+                      <TiDeleteOutline />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
         </div>
 
         {wishlistItems.length >= 1 && (

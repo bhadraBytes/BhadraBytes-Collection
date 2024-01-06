@@ -64,17 +64,22 @@ export const StateContext = ({ children }) => {
 
   const onRemove = (product) => {
     foundProduct = cartItems.find((item) => item._id === product._id);
-    const newCartItems = cartItems.filter((item) => item._id !== product._id);
-
-    setTotalPrice(
-      (prevTotalPrice) =>
-        prevTotalPrice - foundProduct.price * foundProduct.quantity
-    );
-    setTotalQuantities(
-      (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
-    );
-    setCartItems(newCartItems);
+  
+    // Check if foundProduct is defined before accessing its properties
+    if (foundProduct) {
+      const newCartItems = cartItems.filter((item) => item._id !== product._id);
+  
+      setTotalPrice(
+        (prevTotalPrice) =>
+          prevTotalPrice - foundProduct.price * foundProduct.quantity
+      );
+      setTotalQuantities(
+        (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
+      );
+      setCartItems(newCartItems);
+    }
   };
+  
 
   const toggleCartItemQuanitity = (id, value) => {
     foundProduct = cartItems.find((item) => item._id === id);

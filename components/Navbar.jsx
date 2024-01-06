@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
 import { TbSearch } from "react-icons/tb";
@@ -19,8 +19,9 @@ const Navbar = () => {
     showCart,
     setShowCart,
     totalQuantities,
-    showWishlist, // Add the showWishlist state
-    setShowWishlist, // Add the setShowWishlist function
+    showWishlist,
+    setShowWishlist,
+    wishlistItems, // Add wishlistItems
   } = useStateContext();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -31,6 +32,20 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setShowMenu(false);
   };
+
+  useEffect(() => {
+    const body = document.body;
+    if (showMenu) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "auto";
+    }
+
+    // Cleanup: Reset the overflow property when the component is unmounted
+    return () => {
+      body.style.overflow = "auto";
+    };
+  }, [showMenu]);
 
   return (
     <>
@@ -83,36 +98,87 @@ const Navbar = () => {
           <div className="center-container">
             <ul className="center">
               <li>
-                <a href="/">Home </a>
+                <Link
+                  href="/"
+                  className={router.pathname === "/" ? "active" : ""}
+                >
+                  Home
+                </Link>
               </li>
               <li>
-                <a href="/allproducts">All Products</a>
+                <Link
+                  href="/allproducts"
+                  className={router.pathname === "/allproducts" ? "active" : ""}
+                >
+                  All Products
+                </Link>
               </li>
               <li>
-                <a href="#">BEST SELLERS</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/bestsellers" ? "active" : ""}
+                >
+                  BEST SELLERS
+                </Link>
               </li>
               <li>
-                <a href="#">NEW ARRIVALS</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/newarrivals" ? "active" : ""}
+                >
+                  NEW ARRIVALS
+                </Link>
               </li>
               <li>
-                <a href="#">TOPS</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/tops" ? "active" : ""}
+                >
+                  TOPS
+                </Link>
               </li>
               <li>
-                <a href="#">BOTTOMS</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/bottoms" ? "active" : ""}
+                >
+                  BOTTOMS
+                </Link>
               </li>
               <li>
-                <a href="#">DRESSES</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/dresses" ? "active" : ""}
+                >
+                  DRESSES
+                </Link>
               </li>
               <li>
-                <a href="#">SETS</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/sets" ? "active" : ""}
+                >
+                  SETS
+                </Link>
               </li>
               <li>
-                <a href="#">ONE-PIECES</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/onepieces" ? "active" : ""}
+                >
+                  ONE-PIECES
+                </Link>
               </li>
               <li>
-                <a href="#">ABOUT US</a>
+                <Link
+                  href="#"
+                  className={router.pathname === "/aboutus" ? "active" : ""}
+                >
+                  ABOUT US
+                </Link>
               </li>
             </ul>
+
             <div className="small-logo">
               <Link href="/">
                 <img src="../bhadrabytes.png" alt="bhadrabytes" />
@@ -125,6 +191,11 @@ const Navbar = () => {
               onClick={() => setShowWishlist(!showWishlist)} // Toggle wishlist visibility
             >
               <FaRegHeart className="icon-hover" />
+              {wishlistItems.length > 0 && (
+                <span className="wishlist-item-qty">
+                  {wishlistItems.length}
+                </span>
+              )}
             </div>
             <div
               type="button"
@@ -144,21 +215,27 @@ const Navbar = () => {
       {showMenu && (
         <div className={`mobile-menu ${showMenu ? "show" : ""}`}>
           <ul>
-            <li
-              onClick={() => {
-                handleMenuClose();
-                router.push("/");
-              }}
-            >
-              <a href="#">Home</a>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/"
+                className={router.pathname === "/" ? "active" : ""}
+              >
+                Home
+              </Link>{" "}
             </li>
-            <li
-              onClick={() => {
-                handleMenuClose();
-                router.push("/");
-              }}
-            >
-              <a href="#">All Products</a>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/allproducts"
+                className={router.pathname === "/allproducts" ? "active" : ""}
+              >
+                All Products
+              </Link>
             </li>
             <li
               onClick={() => {
@@ -170,13 +247,13 @@ const Navbar = () => {
             </li>
             {user ? (
               <div className="user-small" onClick={handleMenuClose}>
-                <FaRegUserCircle className="user-small-icon"/>
+                <FaRegUserCircle className="user-small-icon" />
                 <Link href="/UserDashboard">
                   {user.displayName?.split(" ")[0] || "User"}
                 </Link>
               </div>
             ) : (
-              <div className="user-small">
+              <div className="user-small" onClick={handleMenuClose}>
                 <Link href="/login">
                   <FaRegUserCircle className="icon-hover" />
                 </Link>

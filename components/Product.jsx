@@ -1,20 +1,21 @@
-// components/Product.jsx
 import React from 'react';
 import Link from 'next/link';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { TiDeleteOutline } from 'react-icons/ti';
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 import { toast } from 'react-hot-toast';
 
-const Product = ({ product: { _id, image, name, slug, price }, onRemove, isWishlistItem }) => {
-  const { wishlistItems, onAddToWishlist, onRemoveFromWishlist } = useStateContext();
+const Product = ({ product: { _id, image, name, slug, price }, isWishlistItem }) => {
+  const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } = useStateContext();
 
   const isProductInWishlist = wishlistItems.some(item => item._id === _id);
 
   const handleToggleWishlist = () => {
+    console.log("onRemove:", onRemove); // Add this line
     if (isProductInWishlist) {
-      onRemove({ _id, name, price, image, slug });
-      toast.info(`${name} removed from wishlist.`);
+      onRemoveFromWishlist({ _id, name, price, image, slug });
+      toast.error(`${name} removed from wishlist.`);
     } else {
       onAddToWishlist({ _id, name, price, image, slug });
       toast.success(`${name} added to wishlist.`);
@@ -23,7 +24,6 @@ const Product = ({ product: { _id, image, name, slug, price }, onRemove, isWishl
 
   return (
     <div>
-      <Link href={`/product/${slug.current}`}>
         <div className="product-card">
           {/* Heart icon to add/remove from wishlist */}
           {isProductInWishlist ? (
@@ -32,6 +32,7 @@ const Product = ({ product: { _id, image, name, slug, price }, onRemove, isWishl
             <AiOutlineHeart onClick={handleToggleWishlist} className="wishlist-icon" />
           )}
           {/* Product image */}
+            <Link href={`/product/${slug.current}`}>
           <img
             src={urlFor(image && image[0])}
             width={250}
@@ -46,13 +47,13 @@ const Product = ({ product: { _id, image, name, slug, price }, onRemove, isWishl
             <button
               type="button"
               className="remove-item"
-              onClick={() => onRemove({ _id, name, price, image, slug })}
+              onClick={() => onRemoveFromWishlist({ _id, name, price, image, slug })}
             >
-              Remove
+              <TiDeleteOutline />
             </button>
           )}
-        </div>
       </Link>
+        </div>
     </div>
   );
 };
