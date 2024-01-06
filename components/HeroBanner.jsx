@@ -5,9 +5,11 @@ import "slick-carousel/slick/slick-theme.css";
 
 const HeroBanner = () => {
   const carouselImages = [
-    "https://www.boat-lifestyle.com/cdn/shop/articles/stone_banner.jpg?v=1633938266",
-    "https://www.boat-lifestyle.com/cdn/shop/articles/Website-stone-banner_1000x.jpg?v=1659088009",
-    "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/S/aplus-media/vc/ffd3e32d-76a5-4c1f-8ae8-68bcff20159b._CR0,0,970,300_PT0_SX970__.jpg"
+    "https://sunraeze.com/cdn/shop/files/banner-2.jpg?v=1704489149",
+    "https://sunraeze.com/cdn/shop/files/banner-1_3590a65f-54b4-44e8-8033-6ca55c818175.jpg?v=1704489164",
+    // "https://www.boat-lifestyle.com/cdn/shop/articles/stone_banner.jpg?v=1633938266",
+    // "https://www.boat-lifestyle.com/cdn/shop/articles/Website-stone-banner_1000x.jpg?v=1659088009",
+    // "https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/S/aplus-media/vc/ffd3e32d-76a5-4c1f-8ae8-68bcff20159b._CR0,0,970,300_PT0_SX970__.jpg"
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
