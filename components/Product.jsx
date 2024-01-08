@@ -1,4 +1,3 @@
-// Product.jsx
 import React, { useState } from "react";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -13,7 +12,6 @@ const Product = ({
   onClose,
   isSearchResult, // New prop to indicate if it's a search result
 }) => {
-  // console.log("onClose:", onClose);
   const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } =
     useStateContext();
   const [index, setIndex] = useState(0);
@@ -21,7 +19,6 @@ const Product = ({
   const isProductInWishlist = wishlistItems.some((item) => item._id === _id);
 
   const handleToggleWishlist = () => {
-    console.log("onRemove:", onRemove); // Add this line
     if (isProductInWishlist) {
       onRemoveFromWishlist({ _id, name, price, image, slug });
       toast.error(`${name} removed from wishlist.`);
@@ -33,21 +30,24 @@ const Product = ({
 
   return (
     <div className="product-card">
-      {isProductInWishlist ? (
-        <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
-      ) : (
-        <AiOutlineHeart
-          onClick={handleToggleWishlist}
-          className="wishlist-icon"
-        />
+      {isSearchResult ? null : (
+        // Only show heart icon if it's not a search result
+        isProductInWishlist ? (
+          <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
+        ) : (
+          <AiOutlineHeart
+            onClick={handleToggleWishlist}
+            className="wishlist-icon"
+          />
+        )
       )}
       {slug && (
         <Link onClick={onClose} href={`/product/${slug.current}`}>
           {image && image[index] && image[index].asset ? (
             <img
               src={urlFor(image[index])
-                .width(isSearchResult ? 180 : 250) // Adjust width based on context
-                .height(isSearchResult ? 180 : 250) // Adjust height based on context
+                .width(isSearchResult ? 180 : 250)
+                .height(isSearchResult ? 180 : 250)
                 .toString()}
               className="product-image"
               alt={name}
