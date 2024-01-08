@@ -1,15 +1,24 @@
-import React from 'react';
-import Link from 'next/link';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { TiDeleteOutline } from 'react-icons/ti';
-import { useStateContext } from '../context/StateContext';
-import { urlFor } from '../lib/client';
-import { toast } from 'react-hot-toast';
+// Product.jsx
+import React, { useState } from "react";
+import Link from "next/link";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { TiDeleteOutline } from "react-icons/ti";
+import { useStateContext } from "../context/StateContext";
+import { urlFor } from "../lib/client";
+import { toast } from "react-hot-toast";
 
-const Product = ({ product: { _id, image, name, slug, price }, isWishlistItem }) => {
-  const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } = useStateContext();
+const Product = ({
+  product: { _id, image, name, slug, price },
+  isWishlistItem,
+  onClose,
+  isSearchResult, // New prop to indicate if it's a search result
+}) => {
+  // console.log("onClose:", onClose);
+  const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } =
+    useStateContext();
+  const [index, setIndex] = useState(0);
 
-  const isProductInWishlist = wishlistItems.some(item => item._id === _id);
+  const isProductInWishlist = wishlistItems.some((item) => item._id === _id);
 
   const handleToggleWishlist = () => {
     console.log("onRemove:", onRemove); // Add this line
@@ -23,37 +32,44 @@ const Product = ({ product: { _id, image, name, slug, price }, isWishlistItem })
   };
 
   return (
-    <div>
-        <div className="product-card">
-          {/* Heart icon to add/remove from wishlist */}
-          {isProductInWishlist ? (
-            <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
+    <div className="product-card">
+      {isProductInWishlist ? (
+        <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
+      ) : (
+        <AiOutlineHeart
+          onClick={handleToggleWishlist}
+          className="wishlist-icon"
+        />
+      )}
+      {slug && (
+        <Link onClick={onClose} href={`/product/${slug.current}`}>
+          {image && image[index] && image[index].asset ? (
+            <img
+              src={urlFor(image[index])
+                .width(isSearchResult ? 180 : 250) // Adjust width based on context
+                .height(isSearchResult ? 180 : 250) // Adjust height based on context
+                .toString()}
+              className="product-image"
+              alt={name}
+            />
           ) : (
-            <AiOutlineHeart onClick={handleToggleWishlist} className="wishlist-icon" />
+            <div>No Image Available</div>
           )}
-          {/* Product image */}
-            <Link href={`/product/${slug.current}`}>
-          <img
-            src={urlFor(image && image[0])}
-            width={250}
-            height={250}
-            className="product-image"
-          />
-          {/* Product details */}
-          <p className="product-name">{name}</p>
-          <p className="product-price">₹{price}</p>
-          {/* Remove button for wishlist */}
-          {isWishlistItem && (
-            <button
-              type="button"
-              className="remove-item"
-              onClick={() => onRemoveFromWishlist({ _id, name, price, image, slug })}
-            >
-              <TiDeleteOutline />
-            </button>
-          )}
-      </Link>
-        </div>
+        </Link>
+      )}
+      <p className="product-name">{name}</p>
+      {price && <p className="product-price">₹{price}</p>}
+      {isWishlistItem && (
+        <button
+          type="button"
+          className="remove-item"
+          onClick={() =>
+            onRemoveFromWishlist({ _id, name, price, image, slug })
+          }
+        >
+          <TiDeleteOutline />
+        </button>
+      )}
     </div>
   );
 };

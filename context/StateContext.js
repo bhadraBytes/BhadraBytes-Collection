@@ -13,6 +13,26 @@ export const StateContext = ({ children }) => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [showWishlist, setShowWishlist] = useState(false);
 
+  const searchProducts = async (query) => {
+    try {
+      const response = await client.fetch(
+        `
+        *[_type == "product" && (name match $query || description match $query)] {
+          _id,
+          name,
+          description
+        }
+      `,
+        { query }
+      );
+
+      return response;
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+      throw error;
+    }
+  };
+
   const onAddToWishlist = (product) => {
     if (!wishlistItems.find((item) => item._id === product._id)) {
       setWishlistItems([...wishlistItems, { ...product }]);
@@ -64,11 +84,11 @@ export const StateContext = ({ children }) => {
 
   const onRemove = (product) => {
     foundProduct = cartItems.find((item) => item._id === product._id);
-  
+
     // Check if foundProduct is defined before accessing its properties
     if (foundProduct) {
       const newCartItems = cartItems.filter((item) => item._id !== product._id);
-  
+
       setTotalPrice(
         (prevTotalPrice) =>
           prevTotalPrice - foundProduct.price * foundProduct.quantity
@@ -79,7 +99,6 @@ export const StateContext = ({ children }) => {
       setCartItems(newCartItems);
     }
   };
-  
 
   const toggleCartItemQuanitity = (id, value) => {
     foundProduct = cartItems.find((item) => item._id === id);
@@ -139,6 +158,7 @@ export const StateContext = ({ children }) => {
         onRemoveFromWishlist,
         showWishlist,
         setShowWishlist,
+        searchProducts,
       }}
     >
       {children}

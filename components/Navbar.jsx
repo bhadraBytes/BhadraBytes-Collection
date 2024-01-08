@@ -4,14 +4,14 @@ import { FiShoppingCart } from "react-icons/fi";
 import { TbSearch } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
-import { Cart } from "./";
+import { Cart, Wishlist, Product, Search } from "./"; // Import the Search component
+import searchProducts from "./"; // Adjust the path
 import { useStateContext } from "../context/StateContext";
 import { useAuth } from "../lib/firebase/auth";
 import { useRouter } from "next/router";
-import { Wishlist } from "./";
+import { client } from "../lib/client"; // Adjust the path to your client file
 
 // ... (other imports)
-
 const Navbar = () => {
   const router = useRouter();
   const { user } = useAuth();
@@ -24,6 +24,12 @@ const Navbar = () => {
     wishlistItems, // Add wishlistItems
   } = useStateContext();
   const [showMenu, setShowMenu] = useState(false);
+
+  const [showSearch, setShowSearch] = useState(false);
+
+  const handleSearchIconClick = () => {
+    setShowSearch(true);
+  };
 
   const handleMenuToggle = () => {
     setShowMenu(!showMenu);
@@ -77,10 +83,38 @@ const Navbar = () => {
               <div className="bar bar3"></div>
             </div>
 
-            <div className="app__header-icon">
+            {/* <div className="app__header-icon">
+              <form onSubmit={handleSearchSubmit}>
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={handleSearchInputChange}
+                />
+                <button type="submit">
+                  <TbSearch className="icon-hover search-icon" />
+                </button>
+              </form>
+            </div> */}
+
+
+            <div className="app__header-icon" onClick={handleSearchIconClick}>
               <h3 className="search">Search</h3>
               <TbSearch className="icon-hover search-icon" />
             </div>
+
+            {showSearch && <Search onClose={() => setShowSearch(false)} />}
+
+            {/* <div className="search-results">
+              {Array.isArray(searchResults) && searchResults.length > 0 ? (
+                searchResults.map((product) => (
+                  <Product key={product._id} product={product} />
+                ))
+              ) : (
+                <p>No results found</p>
+              )}
+            </div> */}
+
             {user ? (
               <div className="userName">
                 <Link href="/UserDashboard">
@@ -110,7 +144,7 @@ const Navbar = () => {
                   href="/allproducts"
                   className={router.pathname === "/allproducts" ? "active" : ""}
                 >
-                  All Products
+                  Products
                 </Link>
               </li>
               <li>
