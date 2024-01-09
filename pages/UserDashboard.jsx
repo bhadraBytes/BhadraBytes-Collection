@@ -4,22 +4,16 @@ import React, { useState } from "react";
 import { useAuth } from "../lib/firebase/auth";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
-import { useStateContext } from "../context/StateContext";
 
 const UserDashboard = () => {
   const { user, signOut } = useAuth();
   const router = useRouter();
-  const { clearWishlistLocalStorage } = useStateContext();
 
   const [selectedTab, setSelectedTab] = useState("welcome");
 
   const handleLogout = async () => {
     try {
       await signOut();
-
-      // Clear wishlist data from local storage when the user logs out
-      clearWishlistLocalStorage();
-
       router.push("/");
       toast.success("Logout successful!");
     } catch (error) {
@@ -59,12 +53,8 @@ const UserDashboard = () => {
         {selectedTab === "welcome" && (
           <div className="personal-info">
             <h2 className="title-info">Personal Information</h2>
-            <p className="info-name">
-              Name: <span>{user?.displayName || "N/A"}</span>
-            </p>
-            <p>
-              Email: <span>{user?.email || "N/A"}</span>
-            </p>
+            <p className="info-name">Name: <span>{user?.displayName || "N/A"}</span></p>
+            <p>Email: <span>{user?.email || "N/A"}</span></p>
           </div>
         )}
 

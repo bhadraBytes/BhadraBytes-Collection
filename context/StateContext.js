@@ -1,20 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 
 const Context = createContext();
-
-// StateContext.js
-
-// ... (existing code)
-
-// Function to clear wishlist data from local storage
-const clearWishlistLocalStorage = () => {
-  localStorage.removeItem("wishlist");
-  setWishlistItems([]); // Update the local state as well
-};
-
-// ... (existing code)
-
 
 export const StateContext = ({ children }) => {
   const [showCart, setShowCart] = useState(false);
@@ -25,29 +12,6 @@ export const StateContext = ({ children }) => {
 
   const [wishlistItems, setWishlistItems] = useState([]);
   const [showWishlist, setShowWishlist] = useState(false);
-
-  const updateCartInLocalStorage = (cartData) => {
-    localStorage.setItem("cart", JSON.stringify(cartData));
-  };
-
-  // Function to update wishlist data in Local Storage
-  const updateWishlistInLocalStorage = (wishlistData) => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlistData));
-  };
-
-  useEffect(() => {
-    // Load cart data from Local Storage on component mount
-    const storedCart = JSON.parse(localStorage.getItem("cart"));
-    if (storedCart) {
-      setCartItems(storedCart);
-    }
-
-    // Load wishlist data from Local Storage on component mount
-    const storedWishlist = JSON.parse(localStorage.getItem("wishlist"));
-    if (storedWishlist) {
-      setWishlistItems(storedWishlist);
-    }
-  }, []);
 
   const searchProducts = async (query) => {
     try {
@@ -71,10 +35,8 @@ export const StateContext = ({ children }) => {
 
   const onAddToWishlist = (product) => {
     if (!wishlistItems.find((item) => item._id === product._id)) {
-      const updatedWishlist = [...wishlistItems, { ...product }];
-      setWishlistItems(updatedWishlist);
-      updateWishlistInLocalStorage(updatedWishlist);
-      toast.success(`${product.name} added to wishlist.`);
+      setWishlistItems([...wishlistItems, { ...product }]);
+      // toast.success(`${product.name} added to wishlist.`);
     } else {
       toast.error(`${product.name} is already in the wishlist.`);
     }
@@ -85,7 +47,6 @@ export const StateContext = ({ children }) => {
       (item) => item._id !== product._id
     );
     setWishlistItems(newWishlistItems);
-    updateWishlistInLocalStorage(newWishlistItems);
     // toast.info(`${product.name} removed from wishlist.`);
   };
 
@@ -93,41 +54,41 @@ export const StateContext = ({ children }) => {
   let index;
 
   const onAdd = (product, quantity) => {
-    const checkProductInCart = cartItems.find((item) => item._id === product._id);
-  
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+    const checkProductInCart = cartItems.find(
+      (item) => item._id === product._id
+    );
+
+    setTotalPrice(
+      (prevTotalPrice) => prevTotalPrice + product.price * quantity
+    );
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-  
+
     if (checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if (cartProduct._id === product._id) {
+        if (cartProduct._id === product._id)
           return {
             ...cartProduct,
             quantity: cartProduct.quantity + quantity,
           };
-        }
-        return cartProduct;
       });
-  
+
       setCartItems(updatedCartItems);
-      updateCartInLocalStorage(updatedCartItems);
     } else {
-      const newCartItem = { ...product, quantity };
-      setCartItems([...cartItems, newCartItem]);
-      updateCartInLocalStorage([...cartItems, newCartItem]);
+      product.quantity = quantity;
+
+      setCartItems([...cartItems, { ...product }]);
     }
-  
-    toast.success(`${quantity} ${product.name} added to the cart.`);
+
+    toast.success(`${qty} ${product.name} added to the cart.`);
   };
-  
 
   const onRemove = (product) => {
     foundProduct = cartItems.find((item) => item._id === product._id);
-  
+
     // Check if foundProduct is defined before accessing its properties
     if (foundProduct) {
       const newCartItems = cartItems.filter((item) => item._id !== product._id);
-  
+
       setTotalPrice(
         (prevTotalPrice) =>
           prevTotalPrice - foundProduct.price * foundProduct.quantity
@@ -136,7 +97,6 @@ export const StateContext = ({ children }) => {
         (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
       );
       setCartItems(newCartItems);
-      updateCartInLocalStorage(newCartItems);
     }
   };
 
@@ -199,7 +159,6 @@ export const StateContext = ({ children }) => {
         showWishlist,
         setShowWishlist,
         searchProducts,
-        clearWishlistLocalStorage,
       }}
     >
       {children}
