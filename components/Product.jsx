@@ -5,12 +5,13 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import { toast } from "react-hot-toast";
+// Import statements remain unchanged
 
 const Product = ({
   product: { _id, image, name, slug, price },
   isWishlistItem,
   onClose,
-  isSearchResult, // New prop to indicate if it's a search result
+  isSearchResult,
 }) => {
   const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } =
     useStateContext();
@@ -28,10 +29,17 @@ const Product = ({
     }
   };
 
+  const truncateName = (text, maxWords) => {
+    const words = text.split(' ');
+    if (words.length > maxWords) {
+      return `${words.slice(0, maxWords).join(' ')}...`;
+    }
+    return text;
+  };
+
   return (
     <div className="product-card">
       {isSearchResult ? null : (
-        // Only show heart icon if it's not a search result
         isProductInWishlist ? (
           <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
         ) : (
@@ -57,8 +65,8 @@ const Product = ({
           )}
         </Link>
       )}
-      <p className="product-name">{name}</p>
-      {price && <p className="product-price">₹{price}</p>}
+      <p className="product-name">{truncateName(name, 20)}..</p>
+      {price && <p className="product-price">Rs {price}</p>}
       {isWishlistItem && (
         <button
           type="button"

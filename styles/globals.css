@@ -4,6 +4,8 @@
   /* You may include additional font formats (e.g., woff, woff2) for better browser compatibility */
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400;500;600&display=swap");
+
 html,
 body,
 * {
@@ -317,7 +319,7 @@ span.text-red {
 }
 
 .product-image {
-  border-radius: 15px;
+  /* border-radius: 15px; */
   background-color: #ebebeb;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
@@ -332,13 +334,20 @@ span.text-red {
 }
 
 .product-name {
+  font-family: "Playfair Display", serif;
   font-weight: 500;
 }
 
 .product-price {
+  font-family: "Playfair Display", serif;
   font-weight: 800;
   margin-top: 6px;
   color: black;
+}
+
+.details{
+  line-height: 1.3;
+  width: 80%;
 }
 
 .size-dropdown {
@@ -857,10 +866,10 @@ select {
   background-color: white;
   color: #f02d34;
   cursor: pointer;
-  width: 200px;
+  /* width: 200px; */
   transform: scale(1, 1);
   transition: transform 0.5s ease;
-  width: 93%;
+  width: 434px;
 }
 .buttons .add-to-wishlist:hover {
   transform: scale(1.1, 1.1);
@@ -1092,17 +1101,53 @@ select {
     transition: opacity 0.5s ease-in-out; /* Add opacity transition */
   }
 
-  /* .product-image */
+  .product-image {
+    /* border-radius: 15px; */
+    background-color: #ebebeb;
+    transform: scale(1, 1);
+    transition: transform 0.5s ease;
+    width: 95%;
+  }
 
+  .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0px;
+    margin-top: 0px;
+    width: 100%;
+    padding: 0px 5px;
+  }
+
+  .product-card {
+    margin-right: 0px;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transform: scale(1, 1);
+    transition: transform 0.5s ease;
+    color: #324d67;
+    width: 50%;
+  }
+
+  .details{
+    width: 100%;
+  }
   /* product heading  */
+  .products-heading {
+    text-align: center;
+    margin: 0px 0px 50px 0px;
+    color: #324d67;
+  }
 
   .products-heading h2 {
     font-size: 20px;
     font-weight: 800;
-}
+  }
   .products-heading p {
     font-size: 14px;
-}
+  }
 
   .mobile-menu.show {
     opacity: 1; /* Set opacity to 1 when the 'show' class is present */
@@ -1736,13 +1781,6 @@ input {
   border-radius: 5px;
   margin-top: 20px;
 }
-
-
-
-
-
-
-
 
 /* Add your styles as needed */
 .search-container {
