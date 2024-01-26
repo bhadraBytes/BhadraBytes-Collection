@@ -5,7 +5,6 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import { toast } from "react-hot-toast";
-// Import statements remain unchanged
 
 const Product = ({
   product: { _id, image, name, slug, price },
@@ -29,30 +28,27 @@ const Product = ({
     }
   };
 
-  const truncateName = (text, maxWords) => {
+  const truncateName = (text, maxCharacters) => {
     if (!text) {
-      return ''; // Return an empty string or handle it as per your requirements
+      return ""; // Return an empty string or handle it as per your requirements
     }
-  
-    const words = text.split(' ');
-    if (words.length > maxWords) {
-      return `${words.slice(0, maxWords).join(' ')}...`;
+
+    if (text.length > maxCharacters) {
+      return text.slice(0, maxCharacters) + "...";
     }
+
     return text;
   };
-  
 
   return (
     <div className="product-card">
-      {isSearchResult ? null : (
-        isProductInWishlist ? (
-          <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
-        ) : (
-          <AiOutlineHeart
-            onClick={handleToggleWishlist}
-            className="wishlist-icon"
-          />
-        )
+      {isSearchResult ? null : isProductInWishlist ? (
+        <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
+      ) : (
+        <AiOutlineHeart
+          onClick={handleToggleWishlist}
+          className="wishlist-icon"
+        />
       )}
       {slug && (
         <Link onClick={onClose} href={`/product/${slug.current}`}>
@@ -70,7 +66,10 @@ const Product = ({
           )}
         </Link>
       )}
-      <p className="product-name">{truncateName(name, 20)}..</p>
+      <p className="product-name" style={{ overflowWrap: "break-word" }}>
+        {truncateName(name, 55)}
+      </p>
+
       {price && <p className="product-price">Rs {price}</p>}
       {isWishlistItem && (
         <button

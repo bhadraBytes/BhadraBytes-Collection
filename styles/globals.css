@@ -301,17 +301,21 @@ span.text-red {
 .product-card {
   margin-right: 15px;
   margin-bottom: 30px;
-  text-align: center;
+  /* text-align: center; */
   position: relative;
+  border-radius: 0.25rem;
+  border: 0.0625rem solid #ECECEC;
+  box-shadow: 0 0.25rem 0.25rem 0 #ECECEC;
   cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: #324d67;
+  padding: 0 0 15px 0;
 }
 
-.product-image:hover {
+/* .product-image:hover {
   transform: scale(1.1, 1.1);
-}
+} */
 
 .wishlist-icon {
   position: absolute;
@@ -340,7 +344,16 @@ span.text-red {
 .product-name {
   font-family: "Playfair Display", serif;
   font-weight: 500;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Adjust the number of lines to your preference */
+  line-height: 1.5; /* Adjust the line height as needed */
+  word-wrap: break-word;
+  hyphens: auto;
+  width: 200px;
 }
+
 
 .product-price {
   font-family: "Playfair Display", serif;
@@ -1043,8 +1056,8 @@ select {
   }
 
   .bar {
-    width: 30px;
-    height: 2px;
+    width: 25px;
+    height: 1.5px;
     /* background-color: var(--secondary-color); */
     /* margin: 6px 0; */
     transition: 0.4s;
@@ -1106,11 +1119,10 @@ select {
   }
 
   .product-image {
-    /* border-radius: 15px; */
     background-color: #ebebeb;
-    transform: scale(1, 1);
-    transition: transform 0.5s ease;
-    width: 95%;
+    transform: scale(1);
+    max-width: 100%;
+    transition: transform .5s ease;
   }
 
   .products-container {
@@ -1128,12 +1140,21 @@ select {
     margin-bottom: 30px;
     text-align: center;
     position: relative;
+    border-radius: 0.25rem;
+    border: 0.0625rem solid #ECECEC;
+    box-shadow: 0 0.25rem 0.25rem 0 #ECECEC;
     cursor: pointer;
-    transform: scale(1, 1);
-    transition: transform 0.5s ease;
+    transform: scale(1);
+    background: white;
+    transition: transform .5s ease;
     color: #324d67;
     width: 50%;
+    padding: 0 0 15px 0;
   }
+  .product-name {
+    width: 150px;
+  }
+  
 
   .details{
     width: 100%;
@@ -1347,7 +1368,7 @@ select {
     padding: 4px;
   }
   .cart-heading {
-    margin-top: 35px;
+    margin-top: 15px;
   }
   .product-container {
     margin-top: 10px;
@@ -1395,6 +1416,7 @@ select {
     color: black;
   }
   .cart-bottom {
+    position: static;
     padding: 30px;
   }
 
