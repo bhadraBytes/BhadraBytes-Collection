@@ -30,12 +30,17 @@ const Product = ({
   };
 
   const truncateName = (text, maxWords) => {
+    if (!text) {
+      return ''; // Return an empty string or handle it as per your requirements
+    }
+  
     const words = text.split(' ');
     if (words.length > maxWords) {
       return `${words.slice(0, maxWords).join(' ')}...`;
     }
     return text;
   };
+  
 
   return (
     <div className="product-card">

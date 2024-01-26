@@ -24,6 +24,10 @@ a {
   text-decoration: none;
 }
 
+.app__center{
+  text-align: center;
+}
+
 .main-container {
   /* max-width: 1400px; */
   margin: auto;
@@ -62,7 +66,7 @@ a {
   height: 50px;
   justify-content: space-between;
   /* margin: 0 120px; */
-  max-width: 1400px;
+  max-width: 1450px;
   color: #000000;
 }
 

@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+const STORAGE_KEY = "MyECommerceApp_data";
 
 const Context = createContext();
 
@@ -12,6 +13,31 @@ export const StateContext = ({ children }) => {
 
   const [wishlistItems, setWishlistItems] = useState([]);
   const [showWishlist, setShowWishlist] = useState(false);
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setCartItems(parsedData.cartItems || []);
+      setTotalPrice(parsedData.totalPrice || 0);
+      setTotalQuantities(parsedData.totalQuantities || 0);
+      setWishlistItems(parsedData.wishlistItems || []);
+    }
+  }, []);
+
+  // Save data to localStorage whenever there is a change
+  useEffect(() => {
+    const dataToSave = {
+      cartItems,
+      totalPrice,
+      totalQuantities,
+      wishlistItems,
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+  }, [cartItems, totalPrice, totalQuantities, wishlistItems]);
 
   const searchProducts = async (query) => {
     try {
@@ -159,6 +185,7 @@ export const StateContext = ({ children }) => {
         showWishlist,
         setShowWishlist,
         searchProducts,
+        setWishlistItems,
       }}
     >
       {children}

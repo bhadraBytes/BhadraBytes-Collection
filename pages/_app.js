@@ -11,8 +11,8 @@ import { AuthProvider } from "../lib/firebase/auth"; // Correct the path to your
 
 function MyApp({ Component, pageProps }) {
   return (
-    <AuthProvider>
-      <StateContext>
+    <StateContext>
+      <AuthProvider>
         <Head>
           <link rel="icon" href="/favicon.ico" />
         </Head>
@@ -20,8 +20,8 @@ function MyApp({ Component, pageProps }) {
           <Toaster />
           <Component {...pageProps} />
         </Layout>
-      </StateContext>
-    </AuthProvider>
+      </AuthProvider>
+    </StateContext>
   );
 }
 

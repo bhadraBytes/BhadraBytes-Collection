@@ -97,7 +97,6 @@ const Navbar = () => {
               </form>
             </div> */}
 
-
             <div className="app__header-icon" onClick={handleSearchIconClick}>
               <h3 className="search">Search</h3>
               <TbSearch className="icon-hover search-icon" />
@@ -144,20 +143,21 @@ const Navbar = () => {
                   href="/allproducts"
                   className={router.pathname === "/allproducts" ? "active" : ""}
                 >
-                  Products
+                  All Products
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/bestsellers"
                   className={router.pathname === "/bestsellers" ? "active" : ""}
                 >
                   BEST SELLERS
                 </Link>
               </li>
+
               <li>
                 <Link
-                  href="#"
+                  href="/newarrivals"
                   className={router.pathname === "/newarrivals" ? "active" : ""}
                 >
                   NEW ARRIVALS
@@ -165,7 +165,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/tops"
                   className={router.pathname === "/tops" ? "active" : ""}
                 >
                   TOPS
@@ -173,7 +173,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/bottoms"
                   className={router.pathname === "/bottoms" ? "active" : ""}
                 >
                   BOTTOMS
@@ -181,7 +181,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/dresses"
                   className={router.pathname === "/dresses" ? "active" : ""}
                 >
                   DRESSES
@@ -189,7 +189,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/sets"
                   className={router.pathname === "/sets" ? "active" : ""}
                 >
                   SETS
@@ -197,7 +197,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
+                  href="/onepieces"
                   className={router.pathname === "/onepieces" ? "active" : ""}
                 >
                   ONE-PIECES
@@ -205,8 +205,8 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="#"
-                  className={router.pathname === "/aboutus" ? "active" : ""}
+                  href="/about"
+                  className={router.pathname === "/about" ? "active" : ""}
                 >
                   ABOUT US
                 </Link>
@@ -258,7 +258,7 @@ const Navbar = () => {
                 className={router.pathname === "/" ? "active" : ""}
               >
                 Home
-              </Link>{" "}
+              </Link>
             </li>
             <li>
               <Link
@@ -271,13 +271,82 @@ const Navbar = () => {
                 All Products
               </Link>
             </li>
-            <li
-              onClick={() => {
-                handleMenuClose();
-                router.push("/contact");
-              }}
-            >
-              <a href="#">Contact</a>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/bestsellers"
+                className={router.pathname === "/bestsellers" ? "active" : ""}
+              >
+                Best Sellers
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/newarrivals"
+                className={router.pathname === "/newarrivals" ? "active" : ""}
+              >
+                New Arrivals
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/tops"
+                className={router.pathname === "/tops" ? "active" : ""}
+              >
+                Tops
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/bottoms"
+                className={router.pathname === "/bottoms" ? "active" : ""}
+              >
+                Bottoms
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/dresses"
+                className={router.pathname === "/dresses" ? "active" : ""}
+              >
+                Dresses
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/sets"
+                className={router.pathname === "/sets" ? "active" : ""}
+              >
+                Sets
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/onepieces"
+                className={router.pathname === "/onepieces" ? "active" : ""}
+              >
+                One Pieces
+              </Link>
             </li>
             {user ? (
               <div className="user-small" onClick={handleMenuClose}>

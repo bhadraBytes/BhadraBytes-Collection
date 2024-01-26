@@ -6,7 +6,7 @@ const AllProductsPage = ({ products }) => {
   return (
     <div>
         <div className="products-heading">
-          <h2>Alll Products</h2>
+          <h2>All Products</h2>
           <p>Winter Collection New Modern Design</p>
         </div>
       <div className="products-container">
