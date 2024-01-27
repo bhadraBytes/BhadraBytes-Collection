@@ -9,16 +9,19 @@ import { urlFor } from '@/lib/client';
 
 
 const Wishlist = () => {
-  const { wishlistItems, setShowWishlist, onRemoveFromWishlist, onAdd } = useStateContext();
+  const { wishlistItems, setShowWishlist, onRemoveFromWishlist, onAdd, setWishlistItems } = useStateContext();
 
   const handleMoveToCart = () => {
-    // Assuming onAdd function adds items to the cart
     wishlistItems.forEach((item) => {
       onAdd(item, 1); // You might need to adjust the quantity as needed
-      onRemoveFromWishlist(item); // Remove the item from the wishlist after adding to the cart
     });
+  
+    // Remove all items from the wishlist after adding to the cart
+    setWishlistItems([]);
+  
     setShowWishlist(false); // Close the wishlist after moving items to the cart
   };
+  
 
   return (
     <div className="cart-wrapper">

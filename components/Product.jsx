@@ -21,10 +21,10 @@ const Product = ({
   const handleToggleWishlist = () => {
     if (isProductInWishlist) {
       onRemoveFromWishlist({ _id, name, price, image, slug });
-      toast.error(`${name} removed from wishlist.`);
+      // toast.error(`${name} removed from wishlist.`);
     } else {
       onAddToWishlist({ _id, name, price, image, slug });
-      toast.success(`${name} added to wishlist.`);
+      // toast.success(`${name} added to wishlist.`);
     }
   };
 
