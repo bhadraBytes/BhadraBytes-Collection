@@ -5,14 +5,15 @@
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
 
 html,
 body,
 * {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
 }
 ::-webkit-scrollbar {
@@ -45,7 +46,7 @@ a {
   justify-content: space-between;
 }
 .anouncement-container p {
-  font-size: 15px !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
   color: #9f9f9f !important;
   padding: 0px 50px;
@@ -84,14 +85,29 @@ a {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  position: relative; /* Add position relative to the container */
 }
+
 .center a.active {
-  text-decoration: underline; /* Add an underline to the active link */
-  font-weight: bold; /* Make the text bold for the active link */
+  position: relative; /* Add position relative to the link */
   color: #ff0000; /* Change the color of the active link */
 }
+
+.center a.active::after {
+  content: ''; /* Add an empty content for the pseudo-element */
+  position: absolute;
+  bottom: -5px; /* Adjust the value to control the distance of the underline from the text */
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid #ff0000; /* Add an underline using border-bottom */
+}
+
+
+
 .app__header .center li {
   display: flex;
+  position: relative;
+  /* display: inline-block; */
   align-items: center;
   justify-content: center;
   text-decoration: none;
@@ -99,10 +115,27 @@ a {
   padding: 0px 15px;
   /* font-size: 18px; */
   text-transform: uppercase;
-  font-family: "MetropolisMedium", sans-serif;
+  font-family: "Montserrat", sans-serif;
+
   font-weight: 500;
   font-size: 15px;
 }
+
+.app__header li:hover::after {
+  width: 50%;
+  border-color: #ff0000; /* Change the color on hover */
+}
+
+.app__header li::after {
+  content: ''; /* Add an empty content for the pseudo-element */
+  position: absolute;
+  bottom: -5px; /* Adjust the value to control the distance of the underline from the text */
+  left: 12px;
+  width: 100%;
+  border-bottom: 2px solid transparent; /* Initially transparent */
+  transition: border-color 0.3s ease; /* Add transition for smooth effect */
+}
+
 
 .app__header .right {
   display: flex !important;
@@ -177,7 +210,7 @@ span.text-red {
   font-weight: lighter;
   color: #000;
   text-transform: uppercase;
-  font-family: "MetropolisMedium", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .app__header-icon {
@@ -212,7 +245,8 @@ span.text-red {
 
 .app__header .user a {
   /* font-weight: 600; */
-  font-family: "MetropolisMedium", sans-serif;
+  font-family: "Montserrat", sans-serif;
+
   font-weight: 500;
   font-size: 25px;
 }
@@ -225,7 +259,8 @@ span.text-red {
   border-right: 1px solid black;
   padding: 15px 10px;
   text-transform: uppercase;
-  font-family: "MetropolisMedium", sans-serif;
+  font-family: "Montserrat", sans-serif;
+
   font-weight: 500;
   font-size: 15px;
 }
@@ -295,6 +330,7 @@ span.text-red {
   /* gap: 15px; */
   margin-top: 10px;
   width: 100%;
+  gap: 5px;
 }
 /* Add these styles to your existing CSS or create a new CSS file */
 
@@ -343,7 +379,7 @@ span.text-red {
 }
 
 .product-name {
-  font-family: "Playfair Display", serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 500;
   overflow: hidden;
   display: -webkit-box;
@@ -356,7 +392,7 @@ span.text-red {
 }
 
 .product-price {
-  font-family: "Playfair Display", serif;
+  font-family: "Roboto Mono", monospace;
   font-weight: 800;
   margin-top: 6px;
   font-size: 18px;
@@ -829,6 +865,9 @@ select {
 .product-detail-desc h4 {
   margin-top: 10px;
 }
+.product-detail-desc h1 {
+  margin-bottom: 10px;
+}
 .product-detail-desc p {
   margin-top: 10px;
 }
@@ -941,12 +980,7 @@ select {
 
   font-size: 28px;
 }
-.maylike-products-container {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-}
+
 .max-qty {
   font-weight: 500;
   color: #f02d34;
@@ -1134,6 +1168,7 @@ select {
     margin-top: 0px;
     width: 100%;
     padding: 0px 5px;
+    gap: 10px;
   }
 
   .product-card {
@@ -1149,7 +1184,7 @@ select {
     background: white;
     transition: transform 0.5s ease;
     color: #324d67;
-    width: 50%;
+    width: 48%;
     padding: 0 0 15px 0;
   }
   .product-name {
@@ -1250,7 +1285,8 @@ select {
     justify-content: center;
     padding: 12px 10px;
     margin: auto 0px 170px 0px;
-    font-family: "MetropolisMedium", sans-serif;
+    font-family: "Montserrat", sans-serif;
+
     font-weight: 400;
     font-size: 35px;
   }
@@ -1864,13 +1900,13 @@ input {
 /* Add this to your CSS styles */
 .strikethrough {
   text-decoration: line-through;
-  color: #a09391; 
+  color: #a09391;
   font-size: 14px;
   font-weight: 700;
   margin-left: 5px;
 }
 
-.rsSign{
+.rsSign {
   margin-right: 5px;
   font-size: 12px;
   font-weight: 700;
@@ -1878,7 +1914,7 @@ input {
 
 .discount-box {
   position: absolute;
-  bottom: 5px;
+  bottom: 110px;
   right: 5px;
   background-color: red;
   color: white;
@@ -1886,12 +1922,12 @@ input {
   border-radius: 3px;
   font-weight: bold;
   font-size: 12px;
+  z-index: 99999999;
 }
 
-.margin-save{
+.margin-save {
   margin: 0 10px;
 }
-
 
 /* Review Banner */
 .reviews-banner {
@@ -2011,30 +2047,70 @@ input {
 .review-form button:hover {
   background-color: #2980b9;
 }
-
+/* Reviews Section */
 .reviews-section {
   margin-top: 20px;
 }
-
-.review-item {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.user-rating {
-  margin-top: 10px;
-}
-
-/* Average Rating Section */
-.average-rating {
-  margin-top: 20px;
+.customer-reviews h3 {
+  margin: 30px 0;
   text-align: center;
 }
+.customer-reviews h3 span {
+  color: red;
+}
+/* Review Item Styles */
+.review-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
 
-.star-rating {
-  margin-top: 10px;
+.review-item p {
+  margin: 0;
+}
+
+.review-item .user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-item .user-info img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.review-item .user-info .username {
+  font-weight: bold;
+}
+
+.review-item .date {
+  color: #888;
+  font-size: 14px;
+}
+
+.review-item .user-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Star Styles */
+.star {
+  color: #324d67; /* Default star color */
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.star.filled {
+  color: yellow; /* Selected star color */
 }
 
 /* Highest Rated Review Section */
@@ -2042,24 +2118,39 @@ input {
   margin-top: 20px;
 }
 
-
-
-/* Add this CSS to your existing styles or create a new stylesheet */
-
-.star {
-  color: #324d67; /* Default star color */
-  cursor: pointer;
-  transition: color 0.3s; /* Smooth color transition */
+/* You may also like Section */
+.maylike-products-wrapper {
+  margin-top: 20px;
 }
 
-.star:hover{
-  color: yellow;
+.maylike-products-wrapper h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
-.star.filled {
-  color: yellow; /* Selected star color */
+.maylike-products-container {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* gap: 15px; */
+  margin-top: 10px;
+  width: 100%;
 }
 
-.filled {
-  color: yellow; /* Selected star color */
+.maylike-products-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.maylike-products-container::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.maylike-products-container::-webkit-scrollbar-track {
+  background-color: #f9f9f9;
+  border-radius: 10px;
 }

@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 import { createClient } from "@sanity/client";
 import { useAuth } from "../../lib/firebase/auth"; // Import Firebase authentication object
+import Star from "../Star"; // Import the Star component
 
 const sanityClient = createClient({
   projectId: "57eqepqo",
@@ -204,15 +205,15 @@ const ProductDetails = ({ product, products, reviews }) => {
           {/* Display average rating and number of reviews on a new line */}
           <div className="rating-reviews">
             {[1, 2, 3, 4, 5].map((star) => (
-              <AiFillStar
+              <Star
                 key={star}
-                className={`star ${star <= averageRating ? "filled" : ""}`}
+                filled={star <= averageRating}
+                onClick={() => handleStarClick(star)}
               />
             ))}
             <span className="average-rating">
               {averageRating} out of 5 stars ({reviews.length} reviews)
             </span>
-            
           </div>
           <h4>Details: </h4>
           <p className="details">{details}</p>
@@ -285,7 +286,6 @@ const ProductDetails = ({ product, products, reviews }) => {
       {/* Reviews Banner Section */}
       <div className="reviews-banner">
         <h2>Reviews</h2>
-        <p>Write a review</p>
         <p>What do you think about this product?</p>
         <button type="button" onClick={handleWriteReview}>
           Write a review
@@ -301,14 +301,14 @@ const ProductDetails = ({ product, products, reviews }) => {
           </div>
           <img src={urlFor(image && image[index])} alt={name} />
           <h3>{name}</h3>
-          {/* Star Rating */}
+          {/* Your rating */}
           <div>
             <p>Your rating?</p>
             {[1, 2, 3, 4, 5].map((star) => (
-              <AiFillStar
+              <Star
                 key={star}
+                filled={star <= rating}
                 onClick={() => handleStarClick(star)}
-                className={`star ${star <= rating ? "filled" : ""}`}
               />
             ))}
           </div>
@@ -340,57 +340,45 @@ const ProductDetails = ({ product, products, reviews }) => {
         </div>
       )}
 
-      {/* Review Section */}
-      <div className="reviews-section">
-        <h2>Rating & Reviews ({reviews.length})</h2>
-      </div>
-
-      <div className="average-rating">
-        <p>{averageRating}</p>
-        <div className="star-rating">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <AiFillStar
-              key={star}
-              className={`star ${star <= averageRating ? "filled" : ""}`}
-            />
-          ))}
-        </div>
-        <p>{`${reviews.length} out of 5 stars`}</p>
-      </div>
-
-      <div className="highest-rated-review">
-        <h3>CUSTOMER REVIEWS ({reviews.length})</h3>
-        {highestRatedReview && (
-          <div className="review-item">
-            <p>{highestRatedReview.userName}</p>
-            <p>{highestRatedReview.feedback}</p>
-            <div className="user-rating">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <AiFillStar
-                  key={star}
-                  className={`star ${
-                    star <= highestRatedReview.rating ? "filled" : ""
-                  }`}
-                />
-              ))}
-            </div>
-            <p>
-              {new Date(highestRatedReview._createdAt).toLocaleDateString(
-                "en-US"
-              )}
-            </p>
-          </div>
+      <div className="customer-reviews app__flex">
+        <h3>
+          CUSTOMER REVIEWS <span>({reviews.length})</span>
+        </h3>
+        {reviews.length > 0 ? (
+          reviews
+            .slice()
+            .sort((a, b) => b.rating - a.rating)
+            .map((review) => (
+              <div key={review._id} className="review-item">
+                <p>{review.userName}</p>
+                <p>{review.feedback}</p>
+                {/* User rating */}
+                <div className="user-rating">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      filled={star <= review.rating}
+                      // You can add onClick handler if needed
+                    />
+                  ))}
+                </div>
+                <p>{new Date(review._createdAt).toLocaleDateString("en-US")}</p>
+              </div>
+            ))
+        ) : (
+          <p className="app__center">No reviews available.</p>
         )}
       </div>
 
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
-        <div className="marquee">
-          <div className="maylike-products-container track">
-            {products.map((item) => (
+        <div className="maylike-products-container">
+          {products.map((item) =>
+            // Display only products from the same category
+            item.category === product.category ? (
               <Product key={item._id} product={item} />
-            ))}
-          </div>
+            ) : null
+          )}
         </div>
       </div>
     </div>
