@@ -299,6 +299,7 @@ span.text-red {
 /* Add these styles to your existing CSS or create a new CSS file */
 
 .product-card {
+  width: 20%;
   margin-right: 15px;
   margin-bottom: 30px;
   /* text-align: center; */
@@ -313,10 +314,9 @@ span.text-red {
   padding: 0 0 15px 0;
 }
 
-/* .product-image:hover {
-  transform: scale(1.1, 1.1);
-} */
-
+.product-card:hover {
+  transform: scale(1.03);
+}
 .wishlist-icon {
   position: absolute;
   top: 10px;
@@ -327,6 +327,7 @@ span.text-red {
 }
 
 .product-image {
+  width: 100%;
   /* border-radius: 15px; */
   background-color: #ebebeb;
   transform: scale(1, 1);
@@ -351,14 +352,15 @@ span.text-red {
   line-height: 1.5; /* Adjust the line height as needed */
   word-wrap: break-word;
   hyphens: auto;
-  width: 200px;
+  width: 300px;
 }
 
 .product-price {
   font-family: "Playfair Display", serif;
   font-weight: 800;
   margin-top: 6px;
-  color: black;
+  font-size: 18px;
+  color: #242428;
 }
 
 .details {
@@ -1862,4 +1864,30 @@ input {
 /* Add this to your CSS styles */
 .strikethrough {
   text-decoration: line-through;
+  color: #a09391; 
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.rsSign{
+  margin-right: 5px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.discount-box {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.margin-save{
+  margin: 0 10px;
 }

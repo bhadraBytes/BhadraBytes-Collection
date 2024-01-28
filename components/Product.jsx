@@ -42,29 +42,43 @@ const Product = ({
 
   const calculateDiscountedPrice = () => {
     if (price && discountPercentage) {
-      const discountedPrice = price - (price * discountPercentage) / 100;
-      return discountedPrice.toFixed(2);
+      const discountedPrice = Math.floor(
+        price - (price * discountPercentage) / 100
+      );
+      return discountedPrice.toString(); // Convert to string for display
     }
     return null;
   };
 
   return (
     <div className="product-card">
-      {isSearchResult ? null : isProductInWishlist ? (
-        <AiFillHeart onClick={handleToggleWishlist} className="wishlist-icon" />
-      ) : (
-        <AiOutlineHeart
-          onClick={handleToggleWishlist}
-          className="wishlist-icon"
-        />
+      {isSearchResult ? null : (
+        <div className="wishlist-container">
+          {isProductInWishlist ? (
+            <AiFillHeart
+              onClick={handleToggleWishlist}
+              className="wishlist-icon"
+            />
+          ) : (
+            <AiOutlineHeart
+              onClick={handleToggleWishlist}
+              className="wishlist-icon"
+            />
+          )}
+          {discountPercentage && (
+            <div className="discount-box">
+              <p>{discountPercentage}% off</p>
+            </div>
+          )}
+        </div>
       )}
       {slug && (
         <Link onClick={onClose} href={`/product/${slug.current}`}>
           {image && image[index] && image[index].asset ? (
             <img
               src={urlFor(image[index])
-                .width(isSearchResult ? 180 : 250)
-                .height(isSearchResult ? 180 : 250)
+                .width(isSearchResult ? 180 : 350)
+                .height(isSearchResult ? 180 : 350)
                 .toString()}
               className="product-image"
               alt={name}
@@ -79,18 +93,24 @@ const Product = ({
       </p>
 
       {price && discountPercentage && (
-        <p className="product-original-price">
-          <span className="strikethrough">Rs {price}</span>
-        </p>
-      )}
-      {calculateDiscountedPrice() && (
-        <p className="product-discounted-price">
-          Rs {calculateDiscountedPrice()} ( {discountPercentage}% off )
+        <p className="product-price">
+          <span className="rsSign">₹</span>
+          {calculateDiscountedPrice()}
+          <span className="strikethrough">
+            <span className="rsSign">₹</span>
+            {price}
+          </span>
+          {/* <span
+            style={{ color: "red", fontWeight: "600" }}
+          >{` ${discountPercentage}% off`}</span> */}
         </p>
       )}
 
       {!discountPercentage && price && (
-        <p className="product-original-price">Rs {price}</p>
+        <p className="product-price">
+          <span className="rsSign">₹</span>
+          {price}
+        </p>
       )}
 
       {isWishlistItem && (

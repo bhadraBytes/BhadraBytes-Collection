@@ -12,7 +12,7 @@ import { useStateContext } from "../../context/StateContext";
 import { toast } from "react-hot-toast";
 
 const ProductDetails = ({ product, products }) => {
-  const { image, name, details, price } = product;
+  const { image, name, details, price, discountPercentage } = product;
   const [index, setIndex] = useState(0);
   const {
     decQty,
@@ -39,7 +39,16 @@ const ProductDetails = ({ product, products }) => {
       toast.error(`${name} error from wishlist.`);
     }
   };
-  
+
+  const calculateDiscountedPrice = () => {
+    if (price && discountPercentage) {
+      const discountedPrice = Math.floor(
+        price - (price * discountPercentage) / 100
+      );
+      return discountedPrice.toString(); // Convert to string for display
+    }
+    return null;
+  };
 
   return (
     <div>
@@ -79,7 +88,36 @@ const ProductDetails = ({ product, products }) => {
           </div>
           <h4>Details: </h4>
           <p className="details">{details}</p>
-          <p className="price">₹{price}</p>
+
+          {price && discountPercentage && (
+            <p>
+              <span className="rsSign">₹</span>
+              <span className="price">{calculateDiscountedPrice()}</span>
+              <span className="inclusive-taxes"> Inclusive of all taxes</span>
+            </p>
+          )}
+
+          {price && discountPercentage && (
+            <p className="discounted-price">
+              <span className="strikethrough">
+                <span className="rsSign">₹</span>
+                {price}
+              </span>
+              <span className="margin-save">Save</span>
+              <span className="rsSign">₹</span>
+              {calculateDiscountedPrice()}
+              <span
+                style={{ color: "red", fontWeight: "600" }}
+              >{` ${discountPercentage}% off`}</span>
+            </p>
+          )}
+
+          {!discountPercentage && price && (
+            <p className="price">
+              <span className="rsSign">₹</span>
+              {price}
+            </p>
+          )}
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
@@ -125,7 +163,7 @@ const ProductDetails = ({ product, products }) => {
             ))}
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   );
 };
@@ -135,8 +173,7 @@ export const getStaticPaths = async () => {
     slug {
       current
     }
-  }
-  `;
+  }`;
 
   const products = await client.fetch(query);
 
