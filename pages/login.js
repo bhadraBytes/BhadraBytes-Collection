@@ -2,16 +2,14 @@
 import React, { useState } from "react";
 import { auth } from "../lib/firebase/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth"; // Import signInWithEmailAndPassword
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
-import toast from 'react-hot-toast';
-
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter(); // Next.js router
-
 
   const handleLogin = async () => {
     try {
@@ -39,6 +37,7 @@ const Login = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="username" // Add this line
           />
         </div>
         <div className="form-group">
@@ -47,6 +46,7 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
           />
         </div>
         <div className="form-group">

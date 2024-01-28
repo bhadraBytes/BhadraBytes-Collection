@@ -5,13 +5,25 @@ import {
   AiFillStar,
   AiOutlineStar,
 } from "react-icons/ai";
-
 import { client, urlFor } from "../../lib/client";
 import { Product } from "../../components";
 import { useStateContext } from "../../context/StateContext";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
+import { createClient } from "@sanity/client";
+import { useAuth } from "../../lib/firebase/auth"; // Import Firebase authentication object
 
-const ProductDetails = ({ product, products }) => {
+const sanityClient = createClient({
+  projectId: "57eqepqo",
+  dataset: "production",
+  useCdn: true,
+  token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
+  ignoreBrowserTokenWarning: true,
+});
+
+const ProductDetails = ({ product, products, reviews }) => {
+  const router = useRouter();
+  const { auth } = useAuth();
   const { image, name, details, price, discountPercentage } = product;
   const [index, setIndex] = useState(0);
   const {
@@ -23,6 +35,100 @@ const ProductDetails = ({ product, products }) => {
     setShowCart,
     setShowWishlist,
   } = useStateContext();
+
+  // State for review form visibility
+  const [showReviewForm, setShowReviewForm] = useState(false);
+
+  // State for star rating
+  const [rating, setRating] = useState(0);
+
+  // Declare reviewFormStyles
+  const reviewFormStyles = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 1000,
+    backgroundColor: "#fff",
+    padding: "30px",
+    boxShadow: "0px 2px 20px rgba(0, 0, 0, 0.1)",
+    borderRadius: "8px",
+    maxWidth: "600px",
+    width: "100%",
+  };
+
+  // State for user name and feedback
+  const [userName, setUserName] = useState("");
+  const [feedback, setFeedback] = useState("");
+
+  // Get the current user ID
+  const userId = auth?.currentUser?.uid || null;
+
+  // Handle "Write a review" button click
+  const handleWriteReview = () => {
+    setShowReviewForm(true);
+    document.body.style.overflow = "hidden"; // Disable scrolling
+  };
+
+  // Handle star rating click
+  const handleStarClick = (star) => {
+    setRating(star);
+  };
+
+  // Handle cancel button click
+  const handleCancel = () => {
+    setShowReviewForm(false);
+    document.body.style.overflow = "auto"; // Enable scrolling
+    // Reset form values
+    setRating(0);
+    setUserName("");
+    setFeedback("");
+  };
+
+  // Handle save button click
+  const handleSave = async () => {
+    // Check if user is authenticated
+    const isAuthenticated = auth?.currentUser;
+
+    // Check if authentication information is still loading
+    if (auth.loading) {
+      console.log("Authentication information is still loading. Please wait.");
+      return;
+    }
+
+    if (!isAuthenticated) {
+      // You can redirect the user to the login page or handle it as needed
+      router.push("/login"); // Adjust the path accordingly
+      return;
+    }
+
+    console.log("User is authenticated. Continue with the review submission.");
+
+    try {
+      // Save the review data to Sanity using your existing Sanity client
+      await sanityClient.create({
+        _type: "review", // Adjust based on your Sanity schema
+        productName: name,
+        productImage: image[index],
+        rating,
+        userName,
+        feedback,
+        userId,
+      });
+
+      toast.success("Review submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting review to Sanity:", error);
+      toast.error("Failed to submit the review. Please try again.");
+    }
+
+    // Reset form values and close the review form
+    setRating(0);
+    setUserName("");
+    setFeedback("");
+    setShowReviewForm(false);
+    document.body.style.overflow = "auto"; // Enable scrolling
+  };
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -50,6 +156,25 @@ const ProductDetails = ({ product, products }) => {
     return null;
   };
 
+  // Calculate average rating
+  const averageRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce((total, review) => total + review.rating, 0) /
+          reviews.length
+        ).toFixed(1)
+      : 0;
+
+  // Get highest rated review
+  const highestRatedReview =
+    reviews.length > 0
+      ? reviews.reduce(
+          (maxReview, review) =>
+            review.rating > maxReview.rating ? review : maxReview,
+          reviews[0]
+        )
+      : null;
+
   return (
     <div>
       <div className="product-detail-container">
@@ -76,15 +201,18 @@ const ProductDetails = ({ product, products }) => {
 
         <div className="product-detail-desc">
           <h1>{name}</h1>
-          <div className="reviews">
-            <div>
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
-            </div>
-            <p>(20)</p>
+          {/* Display average rating and number of reviews on a new line */}
+          <div className="rating-reviews">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <AiFillStar
+                key={star}
+                className={`star ${star <= averageRating ? "filled" : ""}`}
+              />
+            ))}
+            <span className="average-rating">
+              {averageRating} out of 5 stars ({reviews.length} reviews)
+            </span>
+            
           </div>
           <h4>Details: </h4>
           <p className="details">{details}</p>
@@ -154,6 +282,107 @@ const ProductDetails = ({ product, products }) => {
         </div>
       </div>
 
+      {/* Reviews Banner Section */}
+      <div className="reviews-banner">
+        <h2>Reviews</h2>
+        <p>Write a review</p>
+        <p>What do you think about this product?</p>
+        <button type="button" onClick={handleWriteReview}>
+          Write a review
+        </button>
+      </div>
+
+      {/* Review Form Section */}
+      {showReviewForm && (
+        <div className="review-form" style={reviewFormStyles}>
+          <div className="main-text-form">
+            <h2>Write a review</h2>
+            <p>What do you think about this product?</p>
+          </div>
+          <img src={urlFor(image && image[index])} alt={name} />
+          <h3>{name}</h3>
+          {/* Star Rating */}
+          <div>
+            <p>Your rating?</p>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <AiFillStar
+                key={star}
+                onClick={() => handleStarClick(star)}
+                className={`star ${star <= rating ? "filled" : ""}`}
+              />
+            ))}
+          </div>
+
+          <div className="formName">
+            {/* User Name */}
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </div>
+          <div className="feedbackForm">
+            {/* Feedback */}
+            <textarea
+              placeholder="Your feedback"
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value)}
+            />
+          </div>
+          {/* Cancel and Save Buttons */}
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
+          <button type="button" onClick={handleSave}>
+            Save
+          </button>
+        </div>
+      )}
+
+      {/* Review Section */}
+      <div className="reviews-section">
+        <h2>Rating & Reviews ({reviews.length})</h2>
+      </div>
+
+      <div className="average-rating">
+        <p>{averageRating}</p>
+        <div className="star-rating">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <AiFillStar
+              key={star}
+              className={`star ${star <= averageRating ? "filled" : ""}`}
+            />
+          ))}
+        </div>
+        <p>{`${reviews.length} out of 5 stars`}</p>
+      </div>
+
+      <div className="highest-rated-review">
+        <h3>CUSTOMER REVIEWS ({reviews.length})</h3>
+        {highestRatedReview && (
+          <div className="review-item">
+            <p>{highestRatedReview.userName}</p>
+            <p>{highestRatedReview.feedback}</p>
+            <div className="user-rating">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <AiFillStar
+                  key={star}
+                  className={`star ${
+                    star <= highestRatedReview.rating ? "filled" : ""
+                  }`}
+                />
+              ))}
+            </div>
+            <p>
+              {new Date(highestRatedReview._createdAt).toLocaleDateString(
+                "en-US"
+              )}
+            </p>
+          </div>
+        )}
+      </div>
+
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="marquee">
@@ -190,16 +419,20 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
+  const productQuery = `*[_type == "product" && slug.current == '${slug}'][0]`;
   const productsQuery = '*[_type == "product"]';
+  const reviewsQuery = '*[_type == "review" && productName == $productName]';
 
-  const product = await client.fetch(query);
+  const product = await client.fetch(productQuery);
   const products = await client.fetch(productsQuery);
+  const reviews = await client.fetch(reviewsQuery, {
+    productName: product.name,
+  });
 
   console.log(product);
 
   return {
-    props: { products, product },
+    props: { products, product, reviews },
   };
 };
 
