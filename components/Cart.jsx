@@ -41,7 +41,11 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-wrapper" ref={cartRef}>
+    <div
+      className="cart-wrapper"
+      ref={cartRef}
+      onClick={() => setShowCart(false)}
+    >
       <div className="cart-container">
         <button
           type="button"
@@ -73,7 +77,10 @@ const Cart = () => {
           {cartItems.length >= 1 &&
             cartItems.map((item) => (
               <div className="product" key={item._id}>
-                <Link href={`/product/${item.slug.current}`} onClick={() => setShowCart(false)}>
+                <Link
+                  href={`/product/${item.slug.current}`}
+                  onClick={() => setShowCart(false)}
+                >
                   <img
                     src={urlFor(item?.image[0])}
                     className="cart-product-image"
@@ -82,7 +89,10 @@ const Cart = () => {
                 <div className="item-desc">
                   <div className="flex top">
                     <h5>
-                      <Link href={`/product/${item.slug.current}`}  onClick={() => setShowCart(false)}>
+                      <Link
+                        href={`/product/${item.slug.current}`}
+                        onClick={() => setShowCart(false)}
+                      >
                         {item.name}
                       </Link>
                     </h5>

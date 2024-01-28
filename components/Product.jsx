@@ -7,7 +7,7 @@ import { urlFor } from "../lib/client";
 import { toast } from "react-hot-toast";
 
 const Product = ({
-  product: { _id, image, name, slug, price },
+  product: { _id, image, name, slug, price, discountPercentage },
   isWishlistItem,
   onClose,
   isSearchResult,
@@ -40,6 +40,14 @@ const Product = ({
     return text;
   };
 
+  const calculateDiscountedPrice = () => {
+    if (price && discountPercentage) {
+      const discountedPrice = price - (price * discountPercentage) / 100;
+      return discountedPrice.toFixed(2);
+    }
+    return null;
+  };
+
   return (
     <div className="product-card">
       {isSearchResult ? null : isProductInWishlist ? (
@@ -70,7 +78,21 @@ const Product = ({
         {truncateName(name, 55)}
       </p>
 
-      {price && <p className="product-price">Rs {price}</p>}
+      {price && discountPercentage && (
+        <p className="product-original-price">
+          <span className="strikethrough">Rs {price}</span>
+        </p>
+      )}
+      {calculateDiscountedPrice() && (
+        <p className="product-discounted-price">
+          Rs {calculateDiscountedPrice()} ( {discountPercentage}% off )
+        </p>
+      )}
+
+      {!discountPercentage && price && (
+        <p className="product-original-price">Rs {price}</p>
+      )}
+
       {isWishlistItem && (
         <button
           type="button"

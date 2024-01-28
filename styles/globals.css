@@ -24,7 +24,7 @@ a {
   text-decoration: none;
 }
 
-.app__center{
+.app__center {
   text-align: center;
 }
 
@@ -304,8 +304,8 @@ span.text-red {
   /* text-align: center; */
   position: relative;
   border-radius: 0.25rem;
-  border: 0.0625rem solid #ECECEC;
-  box-shadow: 0 0.25rem 0.25rem 0 #ECECEC;
+  border: 0.0625rem solid #ececec;
+  box-shadow: 0 0.25rem 0.25rem 0 #ececec;
   cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
@@ -354,7 +354,6 @@ span.text-red {
   width: 200px;
 }
 
-
 .product-price {
   font-family: "Playfair Display", serif;
   font-weight: 800;
@@ -362,7 +361,7 @@ span.text-red {
   color: black;
 }
 
-.details{
+.details {
   line-height: 1.3;
   width: 80%;
 }
@@ -1122,7 +1121,7 @@ select {
     background-color: #ebebeb;
     transform: scale(1);
     max-width: 100%;
-    transition: transform .5s ease;
+    transition: transform 0.5s ease;
   }
 
   .products-container {
@@ -1141,12 +1140,12 @@ select {
     text-align: center;
     position: relative;
     border-radius: 0.25rem;
-    border: 0.0625rem solid #ECECEC;
-    box-shadow: 0 0.25rem 0.25rem 0 #ECECEC;
+    border: 0.0625rem solid #ececec;
+    box-shadow: 0 0.25rem 0.25rem 0 #ececec;
     cursor: pointer;
     transform: scale(1);
     background: white;
-    transition: transform .5s ease;
+    transition: transform 0.5s ease;
     color: #324d67;
     width: 50%;
     padding: 0 0 15px 0;
@@ -1154,9 +1153,8 @@ select {
   .product-name {
     width: 150px;
   }
-  
 
-  .details{
+  .details {
     width: 100%;
   }
   /* product heading  */
@@ -1861,4 +1859,7 @@ input {
   cursor: pointer;
 }
 
-
+/* Add this to your CSS styles */
+.strikethrough {
+  text-decoration: line-through;
+}

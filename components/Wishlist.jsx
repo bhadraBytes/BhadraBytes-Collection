@@ -29,7 +29,7 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="cart-wrapper">
+    <div className="cart-wrapper" onClick={() => setShowWishlist(false)}>
       <div className="cart-container">
         <button
           type="button"
@@ -58,7 +58,10 @@ const Wishlist = () => {
           {wishlistItems.length >= 1 &&
             wishlistItems.map((item) => (
               <div className="product" key={item._id}>
-                <Link href={`/product/${item.slug.current}`}>
+                <Link
+                  href={`/product/${item.slug.current}`}
+                  onClick={() => setShowWishlist(false)}
+                >
                   <img
                     src={urlFor(item?.image[0])}
                     className="cart-product-image"
@@ -67,7 +70,10 @@ const Wishlist = () => {
                 <div className="item-desc">
                   <div className="flex top">
                     <h5>
-                      <Link href={`/product/${item.slug.current}`}>
+                      <Link
+                        href={`/product/${item.slug.current}`}
+                        onClick={() => setShowWishlist(false)}
+                      >
                         {item.name}
                       </Link>
                     </h5>
