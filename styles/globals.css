@@ -340,14 +340,15 @@ span.text-red {
   margin-bottom: 30px;
   /* text-align: center; */
   position: relative;
-  border-radius: 0.25rem;
-  border: 0.0625rem solid #ececec;
-  box-shadow: 0 0.25rem 0.25rem 0 #ececec;
+  /* border-radius: 0.25rem; */
+  /* border: 0.0625rem solid #ececec; */
+  /* box-shadow: 0 0.25rem 0.25rem 0 #ececec; */
   cursor: pointer;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: #324d67;
   padding: 0 0 15px 0;
+  /* height: 400px; */
 }
 
 .product-card:hover {
@@ -357,18 +358,29 @@ span.text-red {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 20px;
-  color: red; /* Adjust the color as needed */
+  width: 30px; /* Adjust the size of the circle */
+  height: 30px; /* Adjust the size of the circle */
+  padding: 5px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red; /* Set the heart color */
+  font-size: 20px; /* Adjust the size of the heart icon */
   z-index: 99999999999999999;
 }
 
+
 .product-image {
   width: 100%;
-  /* border-radius: 15px; */
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+  object-position: center center; /* Center the image within the container */
   background-color: #ebebeb;
-  transform: scale(1, 1);
   transition: transform 0.5s ease;
 }
+
 .wishlist-product-image {
   border-radius: 15px;
   background-color: #ebebeb;
@@ -380,7 +392,7 @@ span.text-red {
 
 .product-name {
   font-family: "Montserrat", sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -389,6 +401,10 @@ span.text-red {
   word-wrap: break-word;
   hyphens: auto;
   width: 300px;
+  color: #121212;  
+}
+.product-desc {
+  color: #777;
 }
 
 .product-price {
@@ -829,9 +845,10 @@ select {
 .product-detail-image {
   border-radius: 15px;
   background-color: #ebebeb;
-
+  object-fit: cover; /* Ensure the image covers the container while maintaining aspect ratio */
+  object-position: center center; /* Center the image within the container */
   width: 400px;
-  height: 400px;
+  /* height: 400px; */
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
@@ -840,14 +857,15 @@ select {
 }
 .small-images-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
 }
 .small-image {
   border-radius: 8px;
   background-color: #ebebeb;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  /* height: 70px; */
   cursor: pointer;
 }
 
@@ -870,6 +888,13 @@ select {
 }
 .product-detail-desc p {
   margin-top: 10px;
+}
+.average-rating{
+  margin-left: 5px;
+}
+.rating-reviews{
+  display: flex;
+  align-items: center;
 }
 .reviews p {
   color: #324d67;
@@ -1058,11 +1083,29 @@ select {
   .app__header-icon {
     margin: auto;
   }
+  .review-item {
+    width: 100% !important;
+  }
+  .review-form{
+    height: 100vh;
+  }
+  .review-form h3 {
+    text-align: center;
+    margin: 0 25px;
+    vertical-align: middle;
+  }
+  .review-form button {
+    width: 45% !important;
+    padding: 12px !important;
+  }
+  .review-item p {
+    margin-bottom: 5px !important;
+  }
   .anouncement-container {
     height: 20px;
   }
   .anouncement-container .p-text:nth-child(1) {
-    font-size: 10px !important;
+    font-size: 9px !important;
     word-spacing: normal !important;
   }
   .anouncement-container .p-text:nth-child(2),
@@ -1117,6 +1160,10 @@ select {
     display: none;
   }
 
+  .search-result .product-card {
+    width: 45% !important;
+    /* Adjust the width as needed for search results */
+  }
   .navbar-container {
     flex-direction: column;
     align-items: flex-start;
@@ -1174,7 +1221,6 @@ select {
   .product-card {
     margin-right: 0px;
     margin-bottom: 30px;
-    text-align: center;
     position: relative;
     border-radius: 0.25rem;
     border: 0.0625rem solid #ececec;
@@ -1188,16 +1234,19 @@ select {
     padding: 0 0 15px 0;
   }
   .product-name {
+    font-size: 14px;
     width: 150px;
   }
-
+  .product-desc{
+    margin: 5px 0;
+    font-size: 14px;
+  }
   .details {
     width: 100%;
   }
   /* product heading  */
   .products-heading {
     text-align: center;
-    margin: 0px 0px 50px 0px;
     color: #324d67;
   }
 
@@ -1880,13 +1929,21 @@ input {
 }
 
 .search-results {
+  width: 100%;
   display: flex;
   /* flex-direction: column; */
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 50px;
   /* z-index: 9999999999; */
+  gap: 10px;
 }
+
+.search-result .product-card {
+  width: 50%;
+  /* Adjust the width as needed for search results */
+}
+
 
 .close-btn {
   background-color: #333;
@@ -1912,17 +1969,22 @@ input {
   font-weight: 700;
 }
 
+.product-image-container {
+  position: relative;
+}
+
+
 .discount-box {
   position: absolute;
-  bottom: 110px;
-  right: 5px;
+  bottom: 10px;
+  right: 0;
   background-color: red;
   color: white;
   padding: 5px;
   border-radius: 3px;
   font-weight: bold;
   font-size: 12px;
-  z-index: 99999999;
+  z-index: 1; /* Adjust the z-index as needed */
 }
 
 .margin-save {
@@ -1963,6 +2025,10 @@ input {
 
 .review-form .main-text-form {
   margin-bottom: 20px;
+}
+
+.main-text-form p{
+  margin-top: 10px;
 }
 
 .review-form img {
@@ -2017,6 +2083,7 @@ input {
 
 .review-form .feedbackForm textarea {
   width: 100%;
+  height: 150px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -2051,24 +2118,41 @@ input {
 .reviews-section {
   margin-top: 20px;
 }
-.customer-reviews h3 {
+.customer-reviews-text {
   margin: 30px 0;
   text-align: center;
 }
-.customer-reviews h3 span {
+.customer-reviews-text span {
   color: red;
 }
 /* Review Item Styles */
-.review-item {
+.customer-reviews {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.review-item {
+  box-sizing: border-box;
+  width: calc(50% - 20px); /* Subtract padding to keep two items on the same line with a gap */
+  margin: 10px; /* Adjust margin for gap between items */
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
+
+/* If there's an odd number of items, the last one takes up 100% width */
+.customer-reviews:after {
+  content: "";
+  flex: auto;
+}
+
+/* Reset the last item's width to 100% */
+/* .review-item:last-child {
+  width: 100%;
+} */
+
 
 .review-item p {
   margin: 0;
@@ -2110,7 +2194,7 @@ input {
 }
 
 .star.filled {
-  color: yellow; /* Selected star color */
+  color: #ffc600; /* Selected star color */
 }
 
 /* Highest Rated Review Section */
@@ -2125,7 +2209,7 @@ input {
 
 .maylike-products-wrapper h2 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin: 50px 0;
 }
 
 .maylike-products-container {
@@ -2153,4 +2237,30 @@ input {
 .maylike-products-container::-webkit-scrollbar-track {
   background-color: #f9f9f9;
   border-radius: 10px;
+}
+
+
+
+.WriteReview{
+  border-radius: 3px;
+  padding: 10px 12px;
+  color: white;
+  border: 1px solid goldenrod;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.WriteReview:hover{
+  background-color: goldenrod;
+  color: white;
+}
+
+
+.discoutnPercent{
+  margin-left: 5px;
+  color: #ff6b35;
+  font-size: .8125rem;
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: 0; 
 }

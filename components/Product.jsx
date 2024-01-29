@@ -1,3 +1,5 @@
+// Product.js
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -7,7 +9,7 @@ import { urlFor } from "../lib/client";
 import { toast } from "react-hot-toast";
 
 const Product = ({
-  product: { _id, image, name, slug, price, discountPercentage },
+  product: { _id, image, name, slug, price, discountPercentage, details },
   isWishlistItem,
   onClose,
   isSearchResult,
@@ -21,16 +23,14 @@ const Product = ({
   const handleToggleWishlist = () => {
     if (isProductInWishlist) {
       onRemoveFromWishlist({ _id, name, price, image, slug });
-      // toast.error(`${name} removed from wishlist.`);
     } else {
       onAddToWishlist({ _id, name, price, image, slug });
-      // toast.success(`${name} added to wishlist.`);
     }
   };
 
-  const truncateName = (text, maxCharacters) => {
+  const truncateText = (text, maxCharacters) => {
     if (!text) {
-      return ""; // Return an empty string or handle it as per your requirements
+      return "";
     }
 
     if (text.length > maxCharacters) {
@@ -45,7 +45,7 @@ const Product = ({
       const discountedPrice = Math.floor(
         price - (price * discountPercentage) / 100
       );
-      return discountedPrice.toString(); // Convert to string for display
+      return discountedPrice.toString();
     }
     return null;
   };
@@ -65,31 +65,36 @@ const Product = ({
               className="wishlist-icon"
             />
           )}
-          {discountPercentage && (
-            <div className="discount-box">
-              <p>{discountPercentage}% off</p>
-            </div>
-          )}
         </div>
       )}
       {slug && (
         <Link onClick={onClose} href={`/product/${slug.current}`}>
-          {image && image[index] && image[index].asset ? (
-            <img
-              src={urlFor(image[index])
-                .width(isSearchResult ? 180 : 350)
-                .height(isSearchResult ? 180 : 350)
-                .toString()}
-              className="product-image"
-              alt={name}
-            />
-          ) : (
-            <div>No Image Available</div>
-          )}
+          <div className="product-image-container">
+            {image && image[index] && image[index].asset ? (
+              <img
+                src={urlFor(image[index])
+                  .width(isSearchResult ? 180 : 350)
+                  .height(isSearchResult ? 180 : 350)
+                  .toString()}
+                className="product-image"
+                alt={name}
+              />
+            ) : (
+              <div>No Image Available</div>
+            )}
+            {discountPercentage && (
+              <div className="discount-box">
+                <p>{discountPercentage}% off</p>
+              </div>
+            )}
+          </div>
         </Link>
       )}
       <p className="product-name" style={{ overflowWrap: "break-word" }}>
-        {truncateName(name, 55)}
+        {truncateText(name, 25)}
+      </p>
+      <p className="product-desc" style={{ overflowWrap: "break-word" }}>
+        {truncateText(details, 50)} {/* Adjust the maxCharacters as needed */}
       </p>
 
       {price && discountPercentage && (
@@ -100,9 +105,10 @@ const Product = ({
             <span className="rsSign">₹</span>
             {price}
           </span>
-          {/* <span
+          <span
+            className="discoutnPercent"
             style={{ color: "red", fontWeight: "600" }}
-          >{` ${discountPercentage}% off`}</span> */}
+          >{` ${discountPercentage}% off`}</span>
         </p>
       )}
 

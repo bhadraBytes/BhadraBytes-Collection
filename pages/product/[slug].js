@@ -37,6 +37,9 @@ const ProductDetails = ({ product, products, reviews }) => {
     setShowWishlist,
   } = useStateContext();
 
+  // State to track review submission status
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+
   // State for review form visibility
   const [showReviewForm, setShowReviewForm] = useState(false);
 
@@ -91,6 +94,14 @@ const ProductDetails = ({ product, products, reviews }) => {
     // Check if user is authenticated
     const isAuthenticated = auth?.currentUser;
 
+    // Check if already submitting review
+    if (isSubmittingReview) {
+      return;
+    }
+
+    // Set the flag to indicate review submission is in progress
+    setIsSubmittingReview(true);
+
     // Check if authentication information is still loading
     if (auth.loading) {
       console.log("Authentication information is still loading. Please wait.");
@@ -121,14 +132,17 @@ const ProductDetails = ({ product, products, reviews }) => {
     } catch (error) {
       console.error("Error submitting review to Sanity:", error);
       toast.error("Failed to submit the review. Please try again.");
-    }
+    } finally {
+      // Reset form values and close the review form
+      setRating(0);
+      setUserName("");
+      setFeedback("");
+      setShowReviewForm(false);
+      document.body.style.overflow = "auto"; // Enable scrolling
 
-    // Reset form values and close the review form
-    setRating(0);
-    setUserName("");
-    setFeedback("");
-    setShowReviewForm(false);
-    document.body.style.overflow = "auto"; // Enable scrolling
+      // Reset the flag after review submission is completed
+      setIsSubmittingReview(false);
+    }
   };
 
   const handleBuyNow = () => {
@@ -287,7 +301,7 @@ const ProductDetails = ({ product, products, reviews }) => {
       <div className="reviews-banner">
         <h2>Reviews</h2>
         <p>What do you think about this product?</p>
-        <button type="button" onClick={handleWriteReview}>
+        <button type="button" onClick={handleWriteReview} className="WriteReview">
           Write a review
         </button>
       </div>
@@ -317,7 +331,7 @@ const ProductDetails = ({ product, products, reviews }) => {
             {/* User Name */}
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder="Your Name / Enter Title"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
@@ -340,17 +354,17 @@ const ProductDetails = ({ product, products, reviews }) => {
         </div>
       )}
 
-      <div className="customer-reviews app__flex">
-        <h3>
-          CUSTOMER REVIEWS <span>({reviews.length})</span>
-        </h3>
+      <h3 className="customer-reviews-text">
+        CUSTOMER REVIEWS <span>({reviews.length})</span>
+      </h3>
+      <div className="customer-reviews">
         {reviews.length > 0 ? (
           reviews
             .slice()
             .sort((a, b) => b.rating - a.rating)
             .map((review) => (
               <div key={review._id} className="review-item">
-                <p>{review.userName}</p>
+                <h3>{review.userName}</h3>
                 <p>{review.feedback}</p>
                 {/* User rating */}
                 <div className="user-rating">
