@@ -1,5 +1,3 @@
-// Product.js
-
 import React, { useState } from "react";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -13,10 +11,11 @@ const Product = ({
   isWishlistItem,
   onClose,
   isSearchResult,
+  index, // Add the index prop to track the position of the product
 }) => {
   const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } =
     useStateContext();
-  const [index, setIndex] = useState(0);
+  const [currentIndex, setIndex] = useState(0);
 
   const isProductInWishlist = wishlistItems.some((item) => item._id === _id);
 
@@ -70,9 +69,9 @@ const Product = ({
       {slug && (
         <Link onClick={onClose} href={`/product/${slug.current}`}>
           <div className="product-image-container">
-            {image && image[index] && image[index].asset ? (
+            {image && image[currentIndex] && image[currentIndex].asset ? (
               <img
-                src={urlFor(image[index])
+                src={urlFor(image[currentIndex])
                   .width(isSearchResult ? 180 : 350)
                   .height(isSearchResult ? 180 : 350)
                   .toString()}
@@ -129,6 +128,16 @@ const Product = ({
         >
           <TiDeleteOutline />
         </button>
+      )}
+
+
+      {/* Display the additional HTML section after the first 8 products */}
+      {index === 8 && (
+        <section id="banner" className="section-m1">
+          <h4 data-aos="slide-up" data-aos-duration="800" data-aos-delay="" data-aos-easing="linear">Sale Is Live</h4>
+          <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="" data-aos-easing="ease">Upto <span>70% Off</span>- All T-Shirts & Accessories</h2>
+          <button className="normal" data-aos="fade" data-aos-duration="800" data-aos-delay="" data-aos-easing="linear">Explore More</button>
+        </section>
       )}
     </div>
   );

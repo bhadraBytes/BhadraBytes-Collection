@@ -301,7 +301,11 @@ const ProductDetails = ({ product, products, reviews }) => {
       <div className="reviews-banner">
         <h2>Reviews</h2>
         <p>What do you think about this product?</p>
-        <button type="button" onClick={handleWriteReview} className="WriteReview">
+        <button
+          type="button"
+          onClick={handleWriteReview}
+          className="WriteReview"
+        >
           Write a review
         </button>
       </div>
@@ -387,10 +391,10 @@ const ProductDetails = ({ product, products, reviews }) => {
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="maylike-products-container">
-          {products.map((item) =>
+          {products.map((item, index) =>
             // Display only products from the same category
             item.category === product.category ? (
-              <Product key={item._id} product={item} />
+              <Product key={item._id} product={item} index={index} />
             ) : null
           )}
         </div>
