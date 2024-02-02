@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import { toast } from "react-hot-toast";
+import DiscountBanner from "./DiscountBanner";
 
 const Product = ({
-  product: { _id, image, name, slug, price, discountPercentage, details },
+  product: { _id, image, name, slug, price, discountPercentage, details, averageRating },
   isWishlistItem,
   onClose,
   isSearchResult,
-  index, // Add the index prop to track the position of the product
+  index,
 }) => {
   const { wishlistItems, onAddToWishlist, onRemoveFromWishlist, onRemove } =
     useStateContext();
@@ -70,14 +71,22 @@ const Product = ({
         <Link onClick={onClose} href={`/product/${slug.current}`}>
           <div className="product-image-container">
             {image && image[currentIndex] && image[currentIndex].asset ? (
-              <img
-                src={urlFor(image[currentIndex])
-                  .width(isSearchResult ? 180 : 350)
-                  .height(isSearchResult ? 180 : 350)
-                  .toString()}
-                className="product-image"
-                alt={name}
-              />
+              <div>
+                {/* Display the rating badge */}
+                {averageRating && (
+                  <div className="rating-badge">
+                    <span>{averageRating.toFixed(1)}</span>
+                  </div>
+                )}
+                <img
+                  src={urlFor(image[currentIndex])
+                    .width(isSearchResult ? 180 : 350)
+                    .height(isSearchResult ? 180 : 350)
+                    .toString()}
+                  className="product-image"
+                  alt={name}
+                />
+              </div>
             ) : (
               <div>No Image Available</div>
             )}
@@ -93,7 +102,7 @@ const Product = ({
         {truncateText(name, 25)}
       </p>
       <p className="product-desc" style={{ overflowWrap: "break-word" }}>
-        {truncateText(details, 50)} {/* Adjust the maxCharacters as needed */}
+        {truncateText(details, 50)}
       </p>
 
       {price && discountPercentage && (
@@ -130,15 +139,8 @@ const Product = ({
         </button>
       )}
 
-
-      {/* Display the additional HTML section after the first 8 products */}
-      {index === 8 && (
-        <section id="banner" className="section-m1">
-          <h4 data-aos="slide-up" data-aos-duration="800" data-aos-delay="" data-aos-easing="linear">Sale Is Live</h4>
-          <h2 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="" data-aos-easing="ease">Upto <span>70% Off</span>- All T-Shirts & Accessories</h2>
-          <button className="normal" data-aos="fade" data-aos-duration="800" data-aos-delay="" data-aos-easing="linear">Explore More</button>
-        </section>
-      )}
+      {/* Conditionally render the banner based on your requirement */}
+      {/* <DiscountBanner /> */}
     </div>
   );
 };

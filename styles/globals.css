@@ -726,7 +726,6 @@ select {
   color: red;
 } */
 
-
 /* Banner Work Starts From Here  */
 
 #banner {
@@ -763,7 +762,6 @@ select {
   border: 1px solid white;
   color: #fff;
 }
-
 
 /* Footer.css */
 
@@ -891,8 +889,8 @@ button.Promotion {
   flex-wrap: wrap;
   align-items: center;
   background-image: url("/assets/b14.png");
-  background-color: #041e42;
-  background-repeat: no-repeat;
+  background-color: #000;
+  /* background-repeat: no-repeat; */
   background-position: 20% 30%;
 }
 
@@ -900,12 +898,15 @@ button.Promotion {
   font-size: 22px;
   font-weight: 700;
   color: #fff;
+  font-family: "Times New Roman", Times, serif;
 }
 
 #newsletter p {
   font-size: 14px;
   font-weight: 600;
   color: #818ea0;
+  margin-top: 10px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #newsletter p span {
@@ -955,7 +956,7 @@ button.normal {
 .footer-p {
   color: white;
   text-align: center;
-  margin-top: 40px;
+  padding: 40px 0;
 }
 /* Add this CSS to your existing styles or create a new stylesheet */
 
@@ -2275,11 +2276,22 @@ input {
 .product-image-container {
   position: relative;
 }
-
-.discount-box {
+.rating-badge {
   position: absolute;
   bottom: 10px;
   right: 0;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 12px;
+  z-index: 1; /* Adjust the z-index as needed */
+}
+.discount-box {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
   background-color: red;
   color: white;
   padding: 5px;
