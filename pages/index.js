@@ -1,33 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { client } from '../lib/client';
 import HeroBanner from '../components/HeroBanner';
 import FooterBanner from '../components/FooterBanner';
 import DiscountBanner from '../components/DiscountBanner';
 import HighestRatedPage from './HighestRatedPage';
 import BestSellers from './bestsellers';  // Import BestSellers component
+import Loading from './Loading';  // Import the Loading component
 import { getHighestRatedProducts } from '../lib/rating';
 
-const Home = ({ bannerData, highestRatedProducts, bestSellerProducts }) => (
-  <div>
-    <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
+const Home = ({ bannerData, highestRatedProducts, bestSellerProducts }) => {
+  const [loading, setLoading] = useState(true);
 
-    <div className="products-heading">
-      <h2>Highest Rated Products</h2>
-      {/* Additional content if needed */}
+  useEffect(() => {
+    setLoading(false);  // Set loading to false when the component mounts
+  }, []);
+
+  return (
+    <div>
+      <HeroBanner heroBanner={bannerData.length && bannerData[0]} />
+
+      <div className="products-heading">
+        <h2>Highest Rated Products</h2>
+        {/* Additional content if needed */}
+      </div>
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <HighestRatedPage highestRatedProducts={highestRatedProducts} />
+      )}
+
+      {/* Display DiscountBanner component below highest-rated products */}
+      <DiscountBanner />
+
+      {/* Display first four latest best seller products */}
+      <BestSellers products={bestSellerProducts} />
+
+      {bannerData && bannerData.length > 0 && <FooterBanner footerBanner={bannerData[0]} />}
     </div>
-
-    {/* Display highest-rated products */}
-    <HighestRatedPage highestRatedProducts={highestRatedProducts} />
-
-    {/* Display DiscountBanner component below highest-rated products */}
-    <DiscountBanner />
-
-    {/* Display first four latest best seller products */}
-    <BestSellers products={bestSellerProducts} />
-
-    {bannerData && bannerData.length > 0 && <FooterBanner footerBanner={bannerData[0]} />}
-  </div>
-);
+  );
+};
 
 export const getServerSideProps = async () => {
   const bannerQuery = '*[_type == "banner"]';

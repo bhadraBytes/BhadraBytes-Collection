@@ -1,18 +1,38 @@
-// pages/onepieces.js
-import React from "react";
-import { Product } from "../components";
-import { client } from "@/lib/client";
+import React, { useEffect, useState } from 'react';
+import Loading from './Loading'; // Import the Loading component
+import { useLoading } from '../context/LoadingContext'; // Import useLoading
+import { client } from '../lib/client';
+import Product from '../components/Product';
 
-const OnePiecesPage = ({ products }) => {
-  const onePieces = products.filter(
-    (product) => product.category === "ONE-PIECES"
-  );
+const OnePiecesPage = () => {
+  const { startLoading, stopLoading } = useLoading();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        startLoading();
+        const query = '*[_type == "product"]';
+        const response = await client.fetch(query);
+        setProducts(response);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        stopLoading();
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const onePieces = products.filter((product) => product.category === 'ONE-PIECES');
 
   return (
     <div>
       <div className="products-heading">
         <h2>One Pieces</h2>
       </div>
+      <Loading /> {/* Place the Loading component where you want it */}
       {onePieces.length > 0 ? (
         <div className="products-container">
           {onePieces.map((product) => (
@@ -20,9 +40,7 @@ const OnePiecesPage = ({ products }) => {
           ))}
         </div>
       ) : (
-        <p className="app__center">
-          No one-pieces available right now. Check back later!
-        </p>
+        <p className="app__center">No one-pieces available right now. Check back later!</p>
       )}
     </div>
   );

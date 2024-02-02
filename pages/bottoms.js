@@ -1,15 +1,35 @@
-// pages/bottoms.js
-import React from "react";
-import { Product } from "../components";
-import { client } from "@/lib/client";
+import React, { useEffect, useState } from 'react';
+import { Product } from '../components';
+import Loading from './Loading'; // Import the Loading component
+import { useLoading } from '../context/LoadingContext'; // Import useLoading
+import { client } from '@/lib/client';
 
 const BottomsPage = ({ products }) => {
-  const bottoms = products.filter((product) => product.category === "BOTTOMS");
+  const { startLoading, stopLoading } = useLoading();
+  const [bottoms, setBottoms] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        startLoading();
+        // Simulate some API call for bottoms
+        const bottomsData = products ? products.filter((product) => product.category === 'BOTTOMS') : [];
+        setBottoms(bottomsData);
+      } catch (error) {
+        console.error('Error loading bottoms data:', error);
+      } finally {
+        stopLoading();
+      }
+    };
+
+    fetchData();
+  }, [products]);
 
   return (
     <div>
       <div className="products-heading">
         <h2>Bottoms</h2>
+        <Loading /> {/* Place the Loading component where you want it */}
       </div>
       {bottoms.length > 0 ? (
         <div className="products-container">
