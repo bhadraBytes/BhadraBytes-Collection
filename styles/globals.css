@@ -110,13 +110,13 @@ a {
 .app__header .center li {
   display: flex;
   position: relative;
-  /* display: inline-block; */
+
   align-items: center;
   justify-content: center;
   text-decoration: none;
   list-style: none;
   padding: 0px 15px;
-  /* font-size: 18px; */
+
   text-transform: uppercase;
   font-family: "Montserrat", sans-serif;
 
@@ -767,9 +767,10 @@ select {
 
 #sm-banner {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   cursor: pointer;
+  gap: 20px;
 }
 
 #sm-banner .banner-box {
@@ -832,7 +833,7 @@ select {
   align-items: flex-start;
   text-align: center;
   background-image: url("/assets/b7.jpg");
-  min-width: 30%;
+  min-width: 32%;
   height: 30vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1383,6 +1384,21 @@ footer {
   margin: 3px 0;
   transition: 0.4s;
 }
+@media screen and (min-width: 1400px) {
+  #sm-banner .banner-box {
+    min-width: 670px;
+  }
+}
+@media screen and (min-width: 1750px) {
+  #sm-banner .banner-box {
+    min-width: 850px;
+  }
+}
+@media screen and (min-width: 2000px) {
+  #sm-banner .banner-box {
+    min-width: 920px;
+  }
+}
 
 @media screen and (max-width: 800px) {
   .app__header-icon {
@@ -1871,12 +1887,69 @@ footer {
 }
 
 @media screen and (max-width: 470px) {
-  /* .footer-banner-image {
-    display: none;
-  } */
-  /* .footer-banner-container {
-    padding: 30px 20px;
-  } */
+  .rating-badge {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    bottom: 5px !important;
+    left: 0px !important;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 10px !important;
+    z-index: 1; 
+  }
+  .discount-box {
+    position: absolute;
+    bottom: 5px !important;
+    right: 0px !important;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 12px;
+    z-index: 1; 
+  }
+  /* Adjusting Banner  */
+  .section-p1 {
+    padding: 30px;
+  }
+
+  #banner {
+    height: 35vh;
+  }
+
+  #sm-banner .banner-box {
+    height: 30vh;
+    min-width: 100%;
+  }
+
+  #sm-banner .banner-box2 {
+    height: 30vh;
+    width: 100%;
+    margin: 40px 0 40px 0;
+  }
+
+  #banner3 {
+    padding: 0 20px;
+  }
+
+  #banner3 .banner-box {
+    width: 100%;
+  }
+
+  #newsletter {
+    padding: 40px 20px;
+  }
+
+  #newsletter .form {
+    width: 100%;
+  }
 }
 
 /* customer support css  */
@@ -2278,8 +2351,12 @@ input {
 }
 .rating-badge {
   position: absolute;
-  bottom: 10px;
-  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  bottom: 15px;
+  left: 10px;
   background-color: red;
   color: white;
   padding: 5px;
@@ -2290,8 +2367,8 @@ input {
 }
 .discount-box {
   position: absolute;
-  bottom: 10px;
-  left: 0;
+  bottom: 15px;
+  right: 10px;
   background-color: red;
   color: white;
   padding: 5px;
@@ -2663,3 +2740,4 @@ input {
   background-color: goldenrod;
   color: white;
 }
+

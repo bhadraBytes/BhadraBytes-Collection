@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiFillStar } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
@@ -8,7 +8,16 @@ import { toast } from "react-hot-toast";
 import DiscountBanner from "./DiscountBanner";
 
 const Product = ({
-  product: { _id, image, name, slug, price, discountPercentage, details, averageRating },
+  product: {
+    _id,
+    image,
+    name,
+    slug,
+    price,
+    discountPercentage,
+    details,
+    averageRating,
+  },
   isWishlistItem,
   onClose,
   isSearchResult,
@@ -76,6 +85,7 @@ const Product = ({
                 {averageRating && (
                   <div className="rating-badge">
                     <span>{averageRating.toFixed(1)}</span>
+                    <span><AiFillStar /></span>
                   </div>
                 )}
                 <img

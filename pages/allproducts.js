@@ -1,11 +1,14 @@
-// pages/allproducts.jsx
-
+// pages/allproducts.js
 import React from 'react';
 import AllProductsPage from '../components/AllProductsPage';
 import { client } from '../lib/client';
 
 const AllProducts = ({ products }) => {
-  return <AllProductsPage products={products} />;
+  return (
+    <div>
+      <AllProductsPage products={products} />
+    </div>
+  );
 };
 
 export const getServerSideProps = async () => {
