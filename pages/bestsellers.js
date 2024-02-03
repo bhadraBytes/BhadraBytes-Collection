@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { Product } from '../components';
-import Loading from './Loading'; // Import the Loading component
-import { useLoading } from '../context/LoadingContext'; // Import useLoading
+import Loading from './Loading';
+import { useLoading } from '../context/LoadingContext';
 import { client } from '@/lib/client';
 
 const BestSellers = ({ products }) => {
   const { startLoading, stopLoading } = useLoading();
+  const [loading, setLoading] = useState(true);  // Add loading state
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         startLoading();
-        // Simulate some API call for best sellers
         const bestSellersData = products ? products.filter((product) => product.bestSeller) : [];
         setBestSellers(bestSellersData);
       } catch (error) {
         console.error('Error loading best sellers data:', error);
       } finally {
         stopLoading();
+        setLoading(false);  // Set loading to false after fetching
       }
     };
 
     fetchData();
-  }, [products]);
+  }, [products, startLoading, stopLoading]);
 
   return (
     <div>
       <div className="products-heading">
         <h2>Best Sellers</h2>
-        <Loading /> {/* Place the Loading component where you want it */}
+        <Loading style={{ display: loading ? 'flex' : 'none' }} />
       </div>
       {bestSellers.length > 0 ? (
         <div className="products-container">
@@ -45,12 +46,21 @@ const BestSellers = ({ products }) => {
 };
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "product"]';
-  const products = await client.fetch(query);
+  try {
+    const query = '*[_type == "product"]';
+    const products = await client.fetch(query);
 
-  return {
-    props: { products },
-  };
+    console.log('Fetched products:', products);
+
+    return {
+      props: { products },
+    };
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: { products: [] },
+    };
+  }
 };
 
 export default BestSellers;

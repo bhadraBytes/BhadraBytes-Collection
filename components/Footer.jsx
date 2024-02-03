@@ -1,10 +1,24 @@
 import React from "react";
 import Link from "next/link";
-import { AiFillInstagram, AiFillGithub } from "react-icons/ai";
-import { FaEnvelope, FaMapMarkerAlt, FaClock } from "react-icons/fa";
-import CustomerSupport from "./CustomerSupport";
+import { useAuth } from "../lib/firebase/auth";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast"; // Import the toast library
 
 const Footer = () => {
+  const { user, signOut } = useAuth();
+  const router = useRouter();
+  const isLoggedIn = !!user;
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.push("/"); // Navigate to the home page
+      toast.success("Logout successful!");
+    } catch (error) {
+      console.error("Error logging out:", error.message);
+      toast.error("Error logging out. Please try again.");
+    }
+  };
   return (
     <footer>
       <section id="newsletter" class="section-p1 section-m1">
@@ -32,13 +46,13 @@ const Footer = () => {
               <Link href="/">HOME</Link>
             </li>
             <li>
-              <Link href="/">all product</Link>
+              <Link href="/allproducts">all product</Link>
             </li>
             <li>
-              <Link href="/best-sellers">BEST SELLERS</Link>
+              <Link href="/bestsellers">BEST SELLERS</Link>
             </li>
             <li>
-              <Link href="/new-arrivals">NEW ARRIVALS</Link>
+              <Link href="/newarrivals">NEW ARRIVALS</Link>
             </li>
             <li>
               <Link href="/tops">TOPS</Link>
@@ -53,10 +67,10 @@ const Footer = () => {
               <Link href="/sets">SETS</Link>
             </li>
             <li>
-              <Link href="/one-pieces">ONE-PIECES</Link>
+              <Link href="/onepieces">ONE-PIECES</Link>
             </li>
             <li>
-              <Link href="/one-pieces">About Us</Link>
+              <Link href="/aboutus">About Us</Link>
             </li>
           </ul>
         </div>
@@ -65,25 +79,25 @@ const Footer = () => {
           <h4>Shop</h4>
           <ul>
             <li>
-              <Link href="/about">ABOUT Us</Link>
+              <Link href="/aboutus">ABOUT Us</Link>
             </li>
             <li>
-              <Link href="/shop">SHOP All product</Link>
+              <Link href="/allproducts">SHOP All product</Link>
             </li>
             <li>
-              <Link href="/shop">Bottoms</Link>
+              <Link href="/bottoms">Bottoms</Link>
             </li>
             <li>
-              <Link href="/shop">Dressess</Link>
+              <Link href="/dresses">Dressess</Link>
             </li>
             <li>
-              <Link href="/shop">Tops</Link>
+              <Link href="/tops">Tops</Link>
             </li>
             <li>
-              <Link href="/shop">Sets</Link>
+              <Link href="/sets">Sets</Link>
             </li>
             <li>
-              <Link href="/shop">one pieces</Link>
+              <Link href="/onepieces">one pieces</Link>
             </li>
           </ul>
         </div>
@@ -92,25 +106,25 @@ const Footer = () => {
           <h4>CUSTOMER SERVICE</h4>
           <ul>
             <li>
-              <Link href="/customer-service">Contact Us</Link>
+              <Link href="/https://api.whatsapp.com/send/?phone=986766046">Contact Us</Link>
             </li>
             <li>
-              <Link href="/customer-service">About Us</Link>
+              <Link href="/aboutus">About Us</Link>
             </li>
             <li>
               <Link href="/shipping">SHIPPING</Link>
             </li>
             <li>
-              <Link href="/exchanges-returns">EXCHANGES & RETURNS</Link>
+              <Link href="/exchangesreturns">EXCHANGES & RETURNS</Link>
             </li>
             <li>
-              <Link href="/contact-us">CONTACT US</Link>
+              <Link href="/contactusform">CONTACT US</Link>
             </li>
             <li>
-              <Link href="/privacy-policy">PRIVACY POLICY</Link>
+              <Link href="/privacypolicy">PRIVACY POLICY</Link>
             </li>
             <li>
-              <Link href="/terms-of-service">TERMS OF SERVICE</Link>
+              <Link href="/termsofservice">TERMS OF SERVICE</Link>
             </li>
           </ul>
         </div>
@@ -119,7 +133,13 @@ const Footer = () => {
           <h4>My Account</h4>
           <ul>
             <li>
-              <Link href="/Articles">Login</Link>
+              {isLoggedIn ? (
+                <a href="#" onClick={handleLogout}>
+                  Logout
+                </a>
+              ) : (
+                <Link href="/login">Login</Link>
+              )}
             </li>
             <li>
               <Link href="/Articles">view cart</Link>

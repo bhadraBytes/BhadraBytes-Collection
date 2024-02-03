@@ -205,8 +205,8 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/about"
-                  className={router.pathname === "/about" ? "active" : ""}
+                  href="/aboutus"
+                  className={router.pathname === "/aboutus" ? "active" : ""}
                 >
                   ABOUT US
                 </Link>
@@ -346,6 +346,17 @@ const Navbar = () => {
                 className={router.pathname === "/onepieces" ? "active" : ""}
               >
                 One Pieces
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={() => {
+                  handleMenuClose();
+                }}
+                href="/aboutus"
+                className={router.pathname === "/aboutus" ? "active" : ""}
+              >
+                About Us
               </Link>
             </li>
             {user ? (
