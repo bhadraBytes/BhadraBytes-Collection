@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useAuth } from "../lib/firebase/auth";
+import { IoLogoInstagram, IoLogoFacebook,IoLogoGithub  } from "react-icons/io5";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast"; // Import the toast library
 
@@ -106,7 +107,7 @@ const Footer = () => {
           <h4>CUSTOMER SERVICE</h4>
           <ul>
             <li>
-              <Link href="/https://api.whatsapp.com/send/?phone=986766046">Contact Us</Link>
+              <Link href="/">Contact Us</Link>
             </li>
             <li>
               <Link href="/aboutus">About Us</Link>
@@ -155,8 +156,22 @@ const Footer = () => {
             </li>
           </ul>
         </div>
+        
       </div>
-
+      <div className="social-icons">
+          <h4>Follow Us</h4>
+          <ul>
+            <li>
+              <Link href="/https://www.instagram.com/bhadrabytes"><IoLogoInstagram /></Link>
+            </li>
+            <li>
+              <Link href="/Articles"><IoLogoFacebook /></Link>
+            </li>
+            <li>
+              <Link href="https://github.com/bhadraBytes"><IoLogoGithub /></Link>
+            </li>
+          </ul>
+        </div>
       <p className="footer-p">© 2024 BhadraBytes, ALL RIGHTS RESERVED</p>
     </footer>
   );

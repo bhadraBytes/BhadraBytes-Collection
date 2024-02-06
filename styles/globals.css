@@ -33,6 +33,12 @@ a {
 .app__center {
   text-align: center;
 }
+.app__flex {
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+}
 
 .main-container {
   /* max-width: 1400px; */
@@ -1015,6 +1021,32 @@ footer {
   color: #ff6b35; /* Adjust hover color as needed */
 }
 
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: 10px 0 0 0;
+  border-bottom: 0.75px solid #2e2e2e;
+}
+.social-icons ul {
+  margin: 10px 0;
+  display: flex;
+  gap: 15px;
+}
+.social-icons li {
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+}
+.social-icons li:hover {
+  color: #ef3636;
+}
+.social-icons svg {
+  font-size: 22px;
+}
+
 /* Responsive Styling */
 @media screen and (max-width: 768px) {
   .footer-container {
@@ -1565,7 +1597,7 @@ footer {
   .details {
     width: 100%;
   }
-  .slick-dots{
+  .slick-dots {
     height: 18px;
   }
   /* product heading  */
@@ -1905,7 +1937,7 @@ footer {
     border-radius: 3px;
     font-weight: bold;
     font-size: 10px !important;
-    z-index: 1; 
+    z-index: 1;
   }
   .discount-box {
     position: absolute;
@@ -1917,7 +1949,7 @@ footer {
     border-radius: 3px;
     font-weight: bold;
     font-size: 12px;
-    z-index: 1; 
+    z-index: 1;
   }
   /* Adjusting Banner  */
   .section-p1 {
@@ -1954,12 +1986,11 @@ footer {
   #newsletter h4 {
     font-size: 18px;
   }
-  
+
   #newsletter p {
     font-size: 12px;
     margin: 10px 0;
   }
-  
 
   #newsletter .form {
     width: 100%;
@@ -2197,11 +2228,10 @@ input {
 /* Add this CSS to your styles or create a new stylesheet */
 
 .user-dashboard {
-  max-width: 1000px;
-  margin: 50px auto; /* Set auto margin for horizontal centering */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: stretch; /* Stretch both left and right cards to full height */
+  /* max-width: 1000px; */
+  margin: 50px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -2219,13 +2249,90 @@ input {
 .right-card {
   display: flex;
   flex-grow: 1;
-  width: 50%;
-  height: 302px;
+  width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.address-list-container {
+  overflow-y: auto; /* Enable vertical scrolling for the address list */
+  max-height: 400px; /* Set a maximum height for the address list */
+}
+
+.address-form-container form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.address-form-container label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.address-form-container input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Suggestions list styles */
+.address-form-container .suggestions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.address-form-container .suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.address-form-container .suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.address-form-container .form-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+.address-form-container button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.address-form-container button:hover {
+  background-color: #0056b3;
+}
+
+.address-form-container button[type="button"] {
+  background-color: #dc3545;
+}
+
+.address-form-container button[type="button"]:hover {
+  background-color: #c82333;
 }
 
 .tabs {
@@ -2273,6 +2380,93 @@ input {
 .orders,
 .address {
   margin-top: 20px;
+}
+
+.title-info {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.info-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.address {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.add-address-button {
+  margin: 10px 0;
+  cursor: pointer;
+  background-color: #28a745;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.add-address-button:hover {
+  background-color: #218838;
+}
+
+.address-list {
+  list-style: none;
+  padding: 0;
+}
+
+.address-list li {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.address-details {
+  flex: 2;
+}
+
+.address-actions {
+  display: flex;
+  text-align: right;
+}
+
+.address-actions button:nth-child(2) {
+  background-color: #c82333;
+}
+.address-actions button:nth-child(2):hover {
+  background-color: #b91424;
+}
+.address-actions button {
+  margin-left: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.address-actions button:hover {
+  background-color: #0056b3;
+}
+.form-buttons button {
+  margin-left: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+.form-buttons button:hover {
+  background-color: #0056b3;
 }
 
 .left-card button {
@@ -2755,15 +2949,12 @@ input {
   color: white;
 }
 
-
 /* CSS for Loading.jsx */
-
-
 
 #container {
   position: relative;
   transform: scale(0.725);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   display: flex;
@@ -2795,7 +2986,7 @@ input {
 
 .loading-text::before {
   position: absolute;
-  content: '';
+  content: "";
   z-index: 1;
   top: 40px;
   left: 115px;
@@ -2815,7 +3006,7 @@ input {
 
 .letter:nth-child(1)::before {
   position: absolute;
-  content: '';
+  content: "";
   top: 22px;
   left: 0;
   width: 14px;
@@ -2827,7 +3018,7 @@ input {
 
 .letter:nth-child(5)::before {
   position: absolute;
-  content: '';
+  content: "";
   top: 15px;
   left: 2px;
   width: 9px;
@@ -2837,9 +3028,9 @@ input {
   animation: letterStretch 1800ms cubic-bezier(0.25, 0.23, 0.73, 0.75) infinite;
 }
 
-
 @keyframes dotMove {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(180deg) translate(-110px, -10px) rotate(-180deg);
   }
   50% {
@@ -2848,11 +3039,13 @@ input {
 }
 
 @keyframes letterStretch {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1, 0.35);
     transform-origin: 100% 75%;
   }
-  8%, 25% {
+  8%,
+  25% {
     transform: scale(1, 2.5); /* Adjusted scale value */
     transform-origin: 100% 67%;
   }
@@ -2864,15 +3057,18 @@ input {
     transform: scale(1, 1.1); /* Adjusted scale value */
     transform-origin: 100% 75%;
   }
-  50%, 97% {
+  50%,
+  97% {
     transform: scale(1);
     transform-origin: 100% 75%;
   }
 }
 
-
 @keyframes lineStretch {
-  0%, 45%, 70%, 100% {
+  0%,
+  45%,
+  70%,
+  100% {
     transform: scaleY(0.125);
   }
   49% {
@@ -2904,8 +3100,6 @@ input {
   }
 }
 
-
-
 /* about us start from here  */
 .about-us-container {
   max-width: 800px;
@@ -2913,7 +3107,9 @@ input {
   padding: 20px;
 }
 
-.story-section, .passion-section, .wide-range-section {
+.story-section,
+.passion-section,
+.wide-range-section {
   margin-bottom: 40px;
 }
 

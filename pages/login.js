@@ -1,9 +1,7 @@
-// src/components/login.jsx
 import React, { useState } from "react";
 import { auth } from "../lib/firebase/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth"; // Import signInWithEmailAndPassword
 import { useRouter } from "next/router";
-
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -27,17 +25,22 @@ const Login = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    handleLogin(); // Call the handleLogin function
+  };
+
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form className="login-form">
+      <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Email:</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="username" // Add this line
+            autoComplete="username"
           />
         </div>
         <div className="form-group">
@@ -50,9 +53,7 @@ const Login = () => {
           />
         </div>
         <div className="form-group">
-          <button type="button" onClick={handleLogin}>
-            Login
-          </button>
+          <button type="submit">Login</button>
         </div>
       </form>
       <div className="forgot-password">
