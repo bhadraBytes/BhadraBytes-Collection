@@ -106,7 +106,7 @@ const Footer = () => {
           <h4>CUSTOMER SERVICE</h4>
           <ul>
             <li>
-              <Link href="/https://api.whatsapp.com/send/?phone=986766046">Contact Us</Link>
+              <Link href="/">Contact Us</Link>
             </li>
             <li>
               <Link href="/aboutus">About Us</Link>

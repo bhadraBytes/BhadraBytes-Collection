@@ -1,44 +1,57 @@
 import React from "react";
 import Link from "next/link";
+import { urlFor } from "../lib/client";
 
-const FooterBanner = () => {
+const FooterBanner = ({ footerBanners }) => {
+  console.log('FooterBanners Data:', footerBanners);
+
+  if (!footerBanners || footerBanners.length === 0) {
+    console.log('No data received for FooterBanners');
+    return null;
+  }
+
+  const renderImage = (imageField) => {
+    console.log('Image Field:', imageField);
+
+    if (imageField && imageField.asset) {
+      console.log('Image Asset:', imageField.asset);
+
+      return (
+        <img
+          src={urlFor(imageField.asset)
+            .width(350)
+            .height(350)
+            .toString()}
+          alt={imageField.title}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <div>
-      {/* First Section: Two Banners */}
-      <section id="sm-banner" className="section-p1">
-        <div className="banner-box banner-box1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="linear">
-          <h4>Crazy Deals</h4>
-          <h2>Buy 1 Get 1 Free</h2>
-          <span>The best Indian dress is on Sale at Livinum</span>
-          <button className="Promotion">
-            <Link href="/product1">Learn More</Link>
-          </button>
-        </div>
-        <div className="banner-box banner-box2" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" data-aos-easing="linear">
-          <h4>Diwali Festival</h4>
-          <h2>Upcoming Fashion</h2>
-          <span>The best Indian dresses are on Sale at Livinum</span>
-          <button className="Promotion">
-            <Link href="/product2">Collection</Link>
-          </button>
-        </div>
-      </section>
-
-      {/* Second Section: Three Banners */}
-      <section id="banner3">
-        <div className="banner-box" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="" data-aos-easing="linear">
-          <h2>Upcoming Sale</h2>
-          <h3>Winter Sale Is Back, Get Discount Up to 50%</h3>
-        </div>
-        <div className="banner-box banner-box2" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="" data-aos-easing="linear">
-          <h2>Trendy Fashion</h2>
-          <h3>New Trendy Prints</h3>
-        </div>
-        <div className="banner-box banner-box3" data-aos="fade-right" data-aos-duration="2000" data-aos-delay="" data-aos-easing="linear">
-          <h2>Women's Sale</h2>
-          <h3>Get Discount Up to 50%</h3>
-        </div>
-      </section>
+      {footerBanners.map((banner, index) => (
+        <section key={index} className={`section-p1`}>
+          <div
+            className={`banner-box banner-box${index + 1}`}
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="100"
+            data-aos-easing="linear"
+          >
+            {renderImage(banner.image)}
+            <h4>{banner.title}</h4>
+            <h2>{banner.largeText}</h2>
+            <span>{banner.midText}</span>
+            {banner.link && (
+              <button className="Promotion">
+                <Link href={banner.link}>{banner.buttonText}</Link>
+              </button>
+            )}
+          </div>
+        </section>
+      ))}
     </div>
   );
 };
