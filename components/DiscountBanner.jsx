@@ -1,7 +1,10 @@
-// DiscountBanner.jsx
 import React from "react";
 
-const DiscountBanner = () => {
+const DiscountBanner = ({ title, subtitle, discountPercentage }) => {
+  const redirectToAllProducts = () => {
+    window.location.href = "/allproducts";
+  };
+
   return (
     <section id="banner" className="section-m1">
       <h4
@@ -10,7 +13,7 @@ const DiscountBanner = () => {
         data-aos-delay=""
         data-aos-easing="linear"
       >
-        Sale Is Live
+        {title}
       </h4>
       <h2
         data-aos="fade-up"
@@ -18,7 +21,7 @@ const DiscountBanner = () => {
         data-aos-delay=""
         data-aos-easing="ease"
       >
-        Upto <span>70% Off</span>- All T-Shirts & Accessories
+        Upto <span>{discountPercentage}% Off</span> - {subtitle}
       </h2>
       <button
         className="normal"
@@ -26,6 +29,7 @@ const DiscountBanner = () => {
         data-aos-duration="800"
         data-aos-delay=""
         data-aos-easing="linear"
+        onClick={redirectToAllProducts}
       >
         Explore More
       </button>

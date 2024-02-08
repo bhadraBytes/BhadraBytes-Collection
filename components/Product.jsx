@@ -28,25 +28,37 @@ const Product = ({
   const [currentIndex, setIndex] = useState(0);
 
   const isProductInWishlist = wishlistItems.some((item) => item._id === _id);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const handleToggleWishlist = () => {
-    if (isProductInWishlist) {
-      onRemoveFromWishlist({ _id, name, price, image, slug });
-    } else {
-      onAddToWishlist({ _id, name, price, image, slug });
+  useEffect(() => {
+    // Check if running on the client side
+    if (typeof window !== "undefined") {
+      // Update isMobile state based on the screen width
+      const screenWidth = window.innerWidth;
+      setIsMobile(screenWidth < 600);
     }
-  };
+  }, []);
 
   const truncateText = (text, maxCharacters) => {
     if (!text) {
       return "";
     }
 
-    if (text.length > maxCharacters) {
-      return text.slice(0, maxCharacters) + "...";
+    // Use different max characters for name and description based on the screen size
+    const maxChars = isMobile ? (text === name ? 10 : 30) : maxCharacters;
+
+    if (text.length > maxChars) {
+      return text.slice(0, maxChars) + "...";
     }
 
     return text;
+  };
+  const handleToggleWishlist = () => {
+    if (isProductInWishlist) {
+      onRemoveFromWishlist({ _id, name, price, image, slug });
+    } else {
+      onAddToWishlist({ _id, name, price, image, slug });
+    }
   };
 
   const calculateDiscountedPrice = () => {
@@ -85,7 +97,9 @@ const Product = ({
                 {averageRating && (
                   <div className="rating-badge">
                     <span>{averageRating.toFixed(1)}</span>
-                    <span><AiFillStar /></span>
+                    <span>
+                      <AiFillStar />
+                    </span>
                   </div>
                 )}
                 <img
