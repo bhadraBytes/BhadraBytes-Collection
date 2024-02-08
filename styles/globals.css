@@ -956,6 +956,8 @@ button.Promotion {
   flex-wrap: wrap;
   align-items: center;
   background-image: url("/assets/b14.png");
+  border-bottom: 0.75px solid #2e2e2e;
+
   background-color: #000;
   /* background-repeat: no-repeat; */
   background-position: 20% 30%;

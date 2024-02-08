@@ -9,6 +9,7 @@ import "../styles/globals.css";
 import { StateContext } from "../context/StateContext";
 import { AuthProvider } from "../lib/firebase/auth";
 
+
 function MyApp({ Component, pageProps }) {
   return (
     <StateContext>

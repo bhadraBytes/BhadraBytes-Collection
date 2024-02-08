@@ -12,6 +12,7 @@
     "@sanity/client": "^6.10.0",
     "@sanity/image-url": "^1.0.2",
     "@stripe/stripe-js": "^2.2.1",
+    "aos": "^2.3.4",
     "bourbon": "^7.3.0",
     "canvas": "^2.11.2",
     "canvas-confetti": "^1.9.2",

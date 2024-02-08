@@ -91,6 +91,8 @@ const ProductDetails = ({ product, products, reviews }) => {
 
   // Handle save button click
   const handleSave = async () => {
+    console.log("Entering handleSave");
+
     // Check if user is authenticated
     const isAuthenticated = auth?.currentUser;
 
@@ -143,6 +145,7 @@ const ProductDetails = ({ product, products, reviews }) => {
       // Reset the flag after review submission is completed
       setIsSubmittingReview(false);
     }
+    console.log("Exiting handleSave");
   };
 
   const handleBuyNow = () => {
@@ -439,6 +442,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: { products, product, reviews },
+    revalidate: 60, // Set the revalidation time in seconds
   };
 };
 
