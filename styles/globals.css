@@ -1478,6 +1478,11 @@ footer {
   margin: 3px 0;
   transition: 0.4s;
 }
+@media screen and (max-width: 1280px) {
+  .app__header .center li {
+    padding: 0 6px !important;
+  }
+}
 @media screen and (min-width: 1400px) {
   #sm-banner .banner-box {
     min-width: 670px;
@@ -1488,9 +1493,12 @@ footer {
     min-width: 850px;
   }
 }
-@media screen and (min-width: 2000px) {
+@media screen and (min-width: 1920px) {
   #sm-banner .banner-box {
     min-width: 920px;
+  }
+  .app__header {
+    max-width: 100% !important;
   }
 }
 
@@ -1517,6 +1525,7 @@ footer {
     margin-bottom: 5px !important;
   }
   .anouncement-container {
+    justify-content: center;
     height: 20px;
   }
   .anouncement-container .p-text:nth-child(1) {

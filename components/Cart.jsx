@@ -4,10 +4,12 @@ import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from "react-icons/ai";
 import { FiShoppingCart } from "react-icons/fi";
 import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 import { useStateContext } from "../context/StateContext";
 import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
+import { useAuth } from "../lib/firebase/auth"; // Import your authentication context
 
 const Cart = () => {
   const cartRef = useRef();
@@ -20,8 +22,20 @@ const Cart = () => {
     onRemove,
   } = useStateContext();
 
+  const { user } = useAuth(); // Get user information from your authentication context
+  const router = useRouter();
+
   const handleCheckout = async () => {
     const stripe = await getStripe();
+
+    // Check if the user is authenticated
+    if (!user) {
+      toast.error("Please log in to proceed with the checkout.");
+      // Redirect to the login page or show a login modal
+      // Example using Next.js Router for redirection:
+      router.push('/login');
+      return;
+    }
 
     const response = await fetch("/api/stripe", {
       method: "POST",
