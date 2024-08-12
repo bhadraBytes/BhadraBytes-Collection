@@ -162,7 +162,7 @@ const Footer = () => {
           <h4>Follow Us</h4>
           <ul>
             <li>
-              <Link href="/https://www.instagram.com/bhadrabytes"><IoLogoInstagram /></Link>
+              <Link href="https://www.instagram.com/_yash_bhadra_/"><IoLogoInstagram /></Link>
             </li>
             <li>
               <Link href="/Articles"><IoLogoFacebook /></Link>

@@ -83,19 +83,6 @@ const Navbar = () => {
               <div className="bar bar3"></div>
             </div>
 
-            {/* <div className="app__header-icon">
-              <form onSubmit={handleSearchSubmit}>
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={handleSearchInputChange}
-                />
-                <button type="submit">
-                  <TbSearch className="icon-hover search-icon" />
-                </button>
-              </form>
-            </div> */}
 
             <div className="app__header-icon" onClick={handleSearchIconClick}>
               <h3 className="search">Search</h3>

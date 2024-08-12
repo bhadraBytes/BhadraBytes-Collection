@@ -1894,7 +1894,7 @@ footer {
     height: 25%;
   }
   .buttons .add-to-cart {
-    width: 150px;
+    width: 50%;
   }
   .buttons .add-to-wishlist {
     width: 100%;
@@ -1904,7 +1904,7 @@ footer {
     gap: 15px;
   }
   .buttons .buy-now {
-    width: 150px;
+    width: 50%;
   }
   .product-detail-container {
     margin: 20px;
